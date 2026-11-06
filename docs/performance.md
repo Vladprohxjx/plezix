@@ -25,6 +25,32 @@ The release configuration already requests optimized Rust compilation. Avoid
 adding `-C target-cpu=native` or other machine-specific CPU flags to distributable
 builds: they can make the binary run poorly or fail on other customers' devices.
 
+## Desktop: memory-focused browsing
+
+The desktop profile is tuned to reduce the steady-state footprint of several
+same-site video tabs:
+
+- Background video decoding is suspended after 1 second. Audio playback is not
+  intentionally stopped; video decoding resumes when a tab is selected.
+- The small memory-backed media cache is limited to 64 MiB or 2% of physical
+  RAM, whichever limit is reached first. The HTTP memory cache is capped at
+  32 MiB; larger media files continue to use the file-backed cache.
+- Fission remains enabled, but the maximum number of isolated content
+  processes per origin is reduced to one. This can let tabs on the same origin
+  (such as multiple YouTube tabs) share a process; different origins remain
+  isolated.
+- Speculative tab warmup, cached background tab layers, and the spare
+  prelaunched content process are disabled to avoid keeping idle resources.
+- Under OS memory pressure, background tabs can be unloaded after 60 seconds
+  inactive. Their tab entries remain visible, but selecting an unloaded tab
+  reloads its page and any video.
+
+These measures reduce avoidable background memory, not the memory needed by an
+actively playing video, its JavaScript heap, browser chrome, GPU process, or
+operating system. Five loaded YouTube pages may still exceed 300 MiB; five
+simultaneously playing videos will use more. The 300 MiB target must be checked
+with repeatable measurements on the target desktop OS and hardware.
+
 ## Android: optimized Fenix release
 
 Build the release variant:

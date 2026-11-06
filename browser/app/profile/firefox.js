@@ -1234,16 +1234,13 @@ pref("browser.tabs.groups.smart.userEnabled", true);
 
 pref("security.allow_parent_unrestricted_js_loads", false);
 
-// Unload tabs when available memory is running low
-#if defined(XP_MACOSX) || defined(XP_WIN)
-    pref("browser.tabs.unloadOnLowMemory", true);
-#else
-    pref("browser.tabs.unloadOnLowMemory", false);
-#endif
+// Enable memory-pressure tab unloading on all desktop operating systems.
+// Linux also has explicit low-memory thresholds in StaticPrefList.yaml.
+pref("browser.tabs.unloadOnLowMemory", true);
 
-// Tab Unloader does not unload tabs whose last inactive period is longer than
-// this value (in milliseconds).
-pref("browser.tabs.min_inactive_duration_before_unload", 600000);
+// Under memory pressure, background tabs may be unloaded after one minute
+// without interaction. Their tab entries remain and the page reloads on use.
+pref("browser.tabs.min_inactive_duration_before_unload", 60000);
 
 // Does middleclick paste of clipboard to new tab button
 #ifdef UNIX_BUT_NOT_MAC
@@ -1271,11 +1268,9 @@ pref("browser.tabs.contextmenu.altstructure.enabled", false);
   //      unloading to occur.
   // 0x2: Issue the internal "memory-pressure" notification to reduce memory use
   // 0x3: Both 0x1 and 0x2.
-  #if defined(NIGHTLY_BUILD)
-  pref("browser.lowMemoryResponseMask", 3);
-  #else
-  pref("browser.lowMemoryResponseMask", 0);
-  #endif
+  // On stable Plezix builds, react to macOS memory pressure by unloading
+  // background tabs. Leave the separate memory-pressure broadcast disabled.
+  pref("browser.lowMemoryResponseMask", 1);
 
   // Controls which macOS memory-pressure level triggers the browser low memory
   // response. Changes to the pref take effect immediately. Browser restart not
@@ -2916,15 +2911,27 @@ pref("extensions.webcompat.smartblockEmbeds.enabled", true);
 pref("privacy.exposeContentTitleInWindow", true);
 pref("privacy.exposeContentTitleInWindow.pbm", true);
 
-// For speculatively warming up tabs to improve perceived
-// performance while using the async tab switcher.
-pref("browser.tabs.remote.warmup.enabled", true);
+// Prefer a smaller steady-state memory footprint over speculative tab
+// warmup and cached background layers. Selecting a cold tab may take slightly
+// longer, but graphics memory is not retained for recently used tabs.
+pref("browser.tabs.remote.warmup.enabled", false);
+pref("browser.tabs.remote.tabCacheSize", 0);
 
-// Keep the two most recently used background tabs' layers cached. This
-// avoids a content-process round trip and layer re-upload when switching back
-// and forth between recent tabs, trading a small amount of graphics memory
-// for smoother tab switching.
-pref("browser.tabs.remote.tabCacheSize", 2);
+// Keep at most one isolated content process per origin. Fission/site isolation
+// between different origins remains enabled; this only reduces same-origin
+// process fan-out (for example, several YouTube tabs).
+pref("dom.ipc.processCount.webIsolated", 1);
+
+// Bound in-memory HTTP and small-media caches. Large media streams continue
+// using the file-backed cache rather than allocating these amounts in RAM.
+pref("browser.cache.memory.capacity", 32768);
+pref("media.memory_caches_combined_limit_kb", 65536);
+pref("media.memory_caches_combined_limit_pc_sysmem", 2);
+
+// Suspend background video decoding promptly. Audio is not intentionally
+// disabled; video decoding resumes when the tab becomes active again.
+pref("media.suspend-background-video.enabled", true);
+pref("media.suspend-background-video.delay-ms", 1000);
 
 pref("browser.tabs.remote.warmup.maxTabs", 3);
 pref("browser.tabs.remote.warmup.unloadDelayMs", 2000);
@@ -2983,11 +2990,9 @@ pref("browser.esedbreader.loglevel", "Error");
 
 pref("browser.laterrun.enabled", false);
 
-#ifdef FUZZING_SNAPSHOT
+// Do not keep an unused content process prelaunched in the background.
+// This saves idle RAM; the first navigation after startup can be a little slower.
 pref("dom.ipc.processPrelaunch.enabled", false);
-#else
-pref("dom.ipc.processPrelaunch.enabled", true);
-#endif
 
 pref("browser.migrate.bookmarks-file.enabled", true);
 pref("browser.migrate.brave.enabled", true);
