@@ -2920,9 +2920,11 @@ pref("privacy.exposeContentTitleInWindow.pbm", true);
 // performance while using the async tab switcher.
 pref("browser.tabs.remote.warmup.enabled", true);
 
-// Caches tab layers to improve perceived performance
-// of tab switches.
-pref("browser.tabs.remote.tabCacheSize", 0);
+// Keep the two most recently used background tabs' layers cached. This
+// avoids a content-process round trip and layer re-upload when switching back
+// and forth between recent tabs, trading a small amount of graphics memory
+// for smoother tab switching.
+pref("browser.tabs.remote.tabCacheSize", 2);
 
 pref("browser.tabs.remote.warmup.maxTabs", 3);
 pref("browser.tabs.remote.warmup.unloadDelayMs", 2000);

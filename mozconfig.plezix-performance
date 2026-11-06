@@ -1,0 +1,9 @@
+# Plezix desktop production-performance build.
+#
+# PGO profiles the browser and rebuilds hot code paths for better real-world
+# runtime performance. LTO enables link-time optimization; the Mozilla build
+# system chooses the appropriate mode for the host toolchain.
+ac_add_options --enable-project=browser
+ac_add_options --enable-release
+ac_add_options MOZ_PGO=1
+ac_add_options --enable-lto
