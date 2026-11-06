@@ -296,6 +296,16 @@ pref("media.eme.require-app-approval", true);
 // Enable autoplay permission prompts (bug 1577596)
 pref("media.geckoview.autoplay.request", true);
 
+// Enable prompt video decoder suspension for background tabs to release
+// decoder and frame resources shortly after switching away from a page.
+pref("media.suspend-background-video.enabled", true);
+pref("media.suspend-background-video.delay-ms", 1000);
+
+// Bound memory used by small memory-backed media caches. Larger media streams
+// continue to use the file-backed media cache.
+pref("media.memory_caches_combined_limit_kb", 65536);
+pref("media.memory_caches_combined_limit_pc_sysmem", 2);
+
 // Enable Widevine MediaKeySystem (bug 1306219)
 pref("media.mediadrm-widevinecdm.visible", true);
 

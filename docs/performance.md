@@ -38,6 +38,25 @@ Do not pass `-PdisableOptimization` to a shipping build. The dedicated
 `benchmark` variant deliberately turns those optimizations off because it is
 used to generate/measure profiles.
 
+## Android: keep background YouTube tabs lighter
+
+Android's GeckoView build now suspends video decoding in background tabs after
+1 second instead of waiting for the 10-second engine default. Audio playback is
+not intentionally disabled; this targets background video decoding and its
+frame/decoder resources. Returning to a tab resumes decoding.
+
+The combined budget for small memory-backed media caches is capped at 64 MiB
+and 2% of physical RAM (whichever limit is reached first). Larger media streams
+continue to use the file-backed media cache.
+
+These settings reduce avoidable background media memory, but they do not unload
+the page or its JavaScript heap. Five loaded YouTube tabs therefore cannot be
+guaranteed to fit in 300 MiB, especially while multiple videos are actively
+playing or decoding. GeckoView does not currently provide Firefox Desktop's
+full low-memory tab-unloading feature. Do not reduce Fission/site isolation to
+chase a memory number: that trades away tab isolation and increases the risk of
+unresponsive tabs and out-of-memory crashes.
+
 ## Measure Android performance
 
 The repository already contains Macrobenchmark journeys for cold startup,
