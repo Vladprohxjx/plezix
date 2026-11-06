@@ -35,6 +35,13 @@ same-site video tabs:
 - The small memory-backed media cache is limited to 64 MiB or 2% of physical
   RAM, whichever limit is reached first. The HTTP memory cache is capped at
   32 MiB; larger media files continue to use the file-backed cache.
+- The decoded-image surface cache is capped at 256 MiB per content process and
+  at one eighth of physical RAM, whichever is smaller. Old decoded surfaces
+  can be evicted and decoded again when needed; images and page features remain
+  available, with a possible extra decode cost when revisiting image-heavy pages.
+- When a content process moves to the background, Gecko returns unused
+  allocator pages to the OS. This does not unload the page, discard live
+  JavaScript objects, or disable background functionality.
 - Fission remains enabled, but the maximum number of isolated content
   processes per origin is reduced to one. This can let tabs on the same origin
   (such as multiple YouTube tabs) share a process; different origins remain
@@ -113,13 +120,18 @@ ship the measured profile with the release build.
 
 ## Runtime behavior changed here
 
-Desktop tab switching now keeps the two most recently used background-tab
-layers cached. Firefox documents this cache as avoiding a trip to the content
-process when returning to a recent tab. This uses some additional graphics
-memory, so the cache is intentionally small rather than retaining every tab.
+Desktop speculative tab warmup and the extra background-tab layer cache are
+disabled to avoid retaining graphics and process resources for tabs that are
+not being used. Selecting a cold tab may take slightly longer, but normal tab
+switching, page state, and browser features remain available unless the
+existing low-memory tab-unloading mechanism is triggered by OS memory pressure.
+
+The image-surface cache is smaller, so old decoded images may need to be decoded
+again when revisited. Images themselves are not disabled or removed from pages.
 
 No security sandbox, tracking protection, certificate validation, process
-isolation, or web-compatibility setting is weakened for performance.
+isolation between origins, extensions, or web-compatibility feature is disabled
+for this memory pass.
 
 ## Benchmark discipline
 

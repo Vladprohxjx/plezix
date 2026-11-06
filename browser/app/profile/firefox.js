@@ -2928,6 +2928,15 @@ pref("browser.cache.memory.capacity", 32768);
 pref("media.memory_caches_combined_limit_kb", 65536);
 pref("media.memory_caches_combined_limit_pc_sysmem", 2);
 
+// Reclaim unused allocator pages when a content process moves to the
+// background. This does not discard live page data or force a JS heap GC.
+pref("dom.memory.memory_pressure_on_background", 1);
+
+// Bound decoded image surfaces per content process. Evicted surfaces are
+// decoded again from their source when needed; image functionality is unchanged.
+pref("image.mem.surfacecache.max_size_kb", 256 * 1024);
+pref("image.mem.surfacecache.size_factor", 8);
+
 // Suspend background video decoding promptly. Audio is not intentionally
 // disabled; video decoding resumes when the tab becomes active again.
 pref("media.suspend-background-video.enabled", true);
