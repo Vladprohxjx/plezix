@@ -1793,88 +1793,171 @@ popupnotificationcontent {
 }
 
 /* ==========================================================================
-   Plezix visual direction: quiet Safari-like chrome, Firefox personality.
-   Keep these overrides at the end of the shared browser theme so they apply
-   consistently on Windows, macOS, and Linux without changing browser layout.
+   Plezix browser chrome: Safari desktop layout.
+   The native Firefox controls remain in place; only their order and skin
+   change. The toolbar, tab strip and Favorites bar follow Safari's classic
+   desktop window hierarchy.
    ========================================================================== */
 
 :root {
-  --plezix-chrome-background: light-dark(#f3f4f7, #24262c);
-  --plezix-chrome-separator: light-dark(#dfe2e8, #3b3e46);
-  --plezix-toolbar-field: light-dark(#ffffff, #30343b);
-  --plezix-toolbar-field-border: light-dark(#d7dbe3, #474b55);
-  --plezix-firefox-accent: light-dark(#e46b36, #ff8954);
-
+  --plezix-safari-toolbar: light-dark(#f4f5f7, #292a2e);
+  --plezix-safari-sidebar: light-dark(#f1f2f4, #25262a);
+  --plezix-safari-field: light-dark(#ffffff, #3a3b40);
+  --plezix-safari-divider: light-dark(rgb(0 0 0 / 9%), rgb(255 255 255 / 10%));
+  --plezix-safari-hover: light-dark(rgb(0 0 0 / 6%), rgb(255 255 255 / 9%));
+  --plezix-safari-pressed: light-dark(rgb(0 0 0 / 10%), rgb(255 255 255 / 14%));
 }
 
-/* One calm surface behind the browser controls. */
-#navigator-toolbox,
-#TabsToolbar,
-#nav-bar,
-#PersonalToolbar {
-  background-color: var(--plezix-chrome-background);
-}
-
-#TabsToolbar {
-  padding-block: 2px 0;
-}
-
-#tabbrowser-tabs {
-  --tab-border-radius: 10px;
-  --tab-margin-block: 4px;
-}
-
-/* Tabs read as separate, quiet capsules instead of hard-edged browser chrome. */
-.tab-background {
-  border-radius: 10px;
-  transition:
-    background-color 120ms ease,
-    border-color 120ms ease,
-    box-shadow 120ms ease;
-}
-
-.tabbrowser-tab:not([selected]):hover .tab-background {
-  background-color: color-mix(in srgb, currentColor 7%, transparent);
-}
-
-.tabbrowser-tab[selected] .tab-background {
-  background-color: var(--plezix-toolbar-field);
-  outline: 1px solid var(--plezix-toolbar-field-border);
-  outline-offset: -1px;
-  box-shadow:
-    inset 0 2px 0 var(--plezix-firefox-accent),
-    0 1px 2px color-mix(in srgb, #000000 8%, transparent);
+/* Safari's order: navigation toolbar, tabs, then Favorites (when enabled). */
+#navigator-toolbox {
+  background-color: var(--plezix-safari-toolbar);
 }
 
 #nav-bar {
-  min-height: 44px;
-  padding-block: 3px;
-  border-top: 0;
-  border-bottom: 1px solid var(--plezix-chrome-separator);
+  min-height: 48px;
+  padding-block: var(--space-xxsmall);
+  padding-inline: var(--space-small);
+  border: 0;
+  border-bottom: var(--border-width) solid var(--plezix-safari-divider);
+  background-color: var(--plezix-safari-toolbar);
+  color: var(--toolbox-text-color);
 }
 
-/* A single rounded address/search field, with a restrained focus treatment. */
+#nav-bar-customization-target {
+  min-height: 48px;
+  align-items: center;
+}
+
+#nav-bar-customization-target > toolbarspring {
+  min-width: var(--space-large);
+}
+
+/* The Smart Search field is centered and gets the widest visual emphasis. */
+#urlbar-container,
+#wrapper-urlbar-container {
+  flex: 2 1 560px;
+  min-width: min(310px, 34vw);
+  max-width: min(58vw, 720px);
+  margin-inline: var(--space-small);
+}
+
 #urlbar {
-  --urlbar-background-border-radius: 999px;
-  --urlbar-background-color: var(--plezix-toolbar-field);
-  --urlbar-background-color-focus: var(--plezix-toolbar-field);
-  --urlbar-background-border: 1px solid var(--plezix-toolbar-field-border);
-  --urlbar-background-border-focused: 1px solid var(--color-accent-primary);
+  --urlbar-background-border-radius: var(--border-radius-circle);
+  --urlbar-border-radius: var(--border-radius-circle);
+  --urlbar-background-color: var(--plezix-safari-field);
+  --urlbar-background-color-focus: var(--plezix-safari-field);
+  --urlbar-background-border: var(--border-width) solid var(--plezix-safari-divider);
+  --urlbar-background-border-focused: var(--border-width) solid var(--toolbar-field-border-color-focus);
+  --urlbar-background-border-open: var(--border-width) solid var(--panel-border-color);
 }
 
-/* Softer interaction targets across the top chrome. */
-#nav-bar .toolbarbutton-1,
-#TabsToolbar .toolbarbutton-1,
-#PersonalToolbar .toolbarbutton-1 {
-  --toolbarbutton-border-radius: 9px;
+/* Navigation, Sidebar, Downloads and menu actions use quiet circular targets. */
+#nav-bar .toolbarbutton-1 {
+  --toolbarbutton-background-color: transparent;
+  --toolbarbutton-background-color-hover: var(--plezix-safari-hover);
+  --toolbarbutton-background-color-active: var(--plezix-safari-pressed);
+  --toolbarbutton-border-radius: var(--border-radius-circle);
 }
 
+#nav-bar .toolbarbutton-1 > .toolbarbutton-icon,
+#nav-bar .toolbarbutton-1 > .toolbarbutton-badge-stack {
+  border-radius: var(--border-radius-circle);
+}
+
+#back-button > .toolbarbutton-icon,
+#forward-button > .toolbarbutton-icon {
+  border-radius: var(--border-radius-circle);
+}
+
+#sidebar-button > .toolbarbutton-icon {
+  border-radius: var(--border-radius-medium);
+}
+
+/* Keep Windows/macOS/Linux window controls on the upper Safari-style toolbar,
+   not beside the tabs. On macOS their existing order places them at the left. */
+#navigator-toolbox:not([tabs-hidden]) > #nav-bar > .titlebar-buttonbox-container {
+  display: flex;
+  visibility: visible;
+}
+
+#navigator-toolbox:not([tabs-hidden]) > #TabsToolbar > :is(.titlebar-buttonbox-container, .titlebar-spacer) {
+  display: none;
+}
+
+/* Tabs form their own low-contrast strip below the navigation toolbar. */
+#TabsToolbar {
+  min-height: 40px;
+  padding-block: 0;
+  padding-inline: var(--space-medium);
+  background-color: var(--plezix-safari-toolbar);
+  border-bottom: var(--border-width) solid var(--plezix-safari-divider);
+}
+
+#tabbrowser-tabs {
+  --tab-border-radius: var(--border-radius-large);
+  --tab-margin-block: var(--space-xxsmall);
+  --tab-padding-inline: var(--space-medium);
+}
+
+#tabbrowser-tabs[orient="horizontal"] .tabbrowser-tab {
+  padding-inline: var(--space-xxsmall);
+}
+
+#tabbrowser-tabs[orient="horizontal"] .tab-background {
+  border-radius: var(--border-radius-large);
+  margin-block: var(--space-xxsmall);
+  transition:
+    background-color 120ms ease,
+    outline-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+#tabbrowser-tabs[orient="horizontal"] .tabbrowser-tab:not([selected]) .tab-background {
+  background-color: transparent;
+  outline-color: transparent;
+  box-shadow: none;
+}
+
+#tabbrowser-tabs[orient="horizontal"] .tabbrowser-tab:not([selected]):hover .tab-background {
+  background-color: var(--plezix-safari-hover);
+  outline-color: transparent;
+}
+
+#tabbrowser-tabs[orient="horizontal"] .tabbrowser-tab[selected] .tab-background {
+  background-color: var(--plezix-safari-field);
+  outline: var(--border-width) solid var(--plezix-safari-divider);
+  outline-offset: calc(-1 * var(--border-width));
+  box-shadow: 0 1px 2px color-mix(in srgb, #000000 7%, transparent);
+}
+
+#tabs-newtab-button > .toolbarbutton-icon,
+#new-tab-button > .toolbarbutton-icon {
+  border-radius: var(--border-radius-circle);
+}
+
+/* Safari's Favorites row: a slim strip of favicon-and-title bookmark items. */
 #PersonalToolbar {
-  border-bottom: 1px solid var(--plezix-chrome-separator);
+  min-height: 0;
+  padding-block: var(--space-xxsmall);
+  padding-inline: var(--space-medium);
+  background-color: var(--plezix-safari-toolbar);
+  border-bottom: var(--border-width) solid var(--plezix-safari-divider);
 }
 
+#PlacesToolbarItems .bookmark-item,
+#personal-bookmarks .bookmark-item {
+  border-radius: var(--border-radius-medium);
+  padding-inline: var(--space-small);
+}
+
+#PlacesToolbarItems .bookmark-item:hover,
+#personal-bookmarks .bookmark-item:hover {
+  background-color: var(--plezix-safari-hover);
+}
+
+/* Keep the browser chrome calm while respecting reduced-motion settings. */
 @media (prefers-reduced-motion: reduce) {
-  .tab-background {
+  #tabbrowser-tabs[orient="horizontal"] .tab-background {
     transition: none;
   }
 }
