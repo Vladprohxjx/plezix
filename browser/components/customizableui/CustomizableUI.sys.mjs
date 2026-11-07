@@ -62,7 +62,7 @@ const kSubviewEvents = ["ViewShowing", "ViewHiding"];
  * The current version. We can use this to auto-add new default widgets as necessary.
  * (would be const but isn't because of testing purposes)
  */
-var kVersion = 30;
+var kVersion = 31;
 
 /**
  * Buttons removed from built-ins by version they were removed. kVersion must be
@@ -1067,18 +1067,19 @@ var CustomizableUIInternal = {
       }
     }
 
-    // Keep pinned WebExtension buttons together with Smart Search so the
-    // address bar and extensions form a centered group. The flexible space
-    // after the group then separates it from downloads and account actions.
-    if (currentVersion < 30) {
+    // Keep extension actions and the extensions menu beside Smart Search,
+    // with flexible space on both sides so the whole group stays centered.
+    if (currentVersion < 31) {
       const navbarPlacements = gSavedState.placements[CustomizableUI.AREA_NAVBAR];
       if (Array.isArray(navbarPlacements)) {
-        const pinnedExtensionWidgets = navbarPlacements.filter(widgetId =>
-          CustomizableUI.isWebExtensionWidget(widgetId)
+        const extensionWidgets = navbarPlacements.filter(
+          widgetId =>
+            widgetId == "unified-extensions-button" ||
+            CustomizableUI.isWebExtensionWidget(widgetId)
         );
 
-        if (pinnedExtensionWidgets.length) {
-          for (const widgetId of pinnedExtensionWidgets) {
+        if (extensionWidgets.length) {
+          for (const widgetId of extensionWidgets) {
             const widgetIndex = navbarPlacements.indexOf(widgetId);
             if (widgetIndex != -1) {
               navbarPlacements.splice(widgetIndex, 1);
@@ -1094,7 +1095,7 @@ var CustomizableUIInternal = {
             navbarPlacements.splice(
               centerGroupEndIndex + 1,
               0,
-              ...pinnedExtensionWidgets
+              ...extensionWidgets
             );
           }
         }
