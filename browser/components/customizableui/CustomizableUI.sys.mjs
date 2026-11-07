@@ -62,7 +62,7 @@ const kSubviewEvents = ["ViewShowing", "ViewHiding"];
  * The current version. We can use this to auto-add new default widgets as necessary.
  * (would be const but isn't because of testing purposes)
  */
-var kVersion = 31;
+var kVersion = 32;
 
 /**
  * Buttons removed from built-ins by version they were removed. kVersion must be
@@ -366,13 +366,13 @@ var CustomizableUIInternal = {
       "vertical-spacer",
       "urlbar-container",
       "stop-reload-button",
-      "spring",
       "downloads-button",
       AppConstants.MOZ_DEV_EDITION ? "developer-button" : null,
       lazy.ippEnabled ? "ipprotection-button" : null,
       "fxa-toolbar-menu-button",
       lazy.resetPBMToolbarButtonEnabled ? "reset-pbm-toolbar-button" : null,
       lazy.fireButtonEnabled ? "fire-button" : null,
+      "spring",
     ].filter(name => name);
 
     this.registerArea(
@@ -1098,6 +1098,40 @@ var CustomizableUIInternal = {
               ...extensionWidgets
             );
           }
+        }
+      }
+    }
+
+    // Center the whole search-and-toolbar cluster in the available toolbar:
+    // keep one flexible spring before Smart Search and one after all actions.
+    // This avoids leaving unused space after the profile button, which made
+    // the search field and extension buttons sit in the left half of the window.
+    if (currentVersion < 32) {
+      const navbarPlacements = gSavedState.placements[CustomizableUI.AREA_NAVBAR];
+      if (Array.isArray(navbarPlacements)) {
+        const urlbarIndex = navbarPlacements.indexOf("urlbar-container");
+        if (urlbarIndex != -1) {
+          const springIds = navbarPlacements.filter(widgetId =>
+            this.matchingSpecials(widgetId, "spring")
+          );
+          const leadingSpring =
+            springIds.find(
+              widgetId =>
+                navbarPlacements.indexOf(widgetId) < urlbarIndex
+            ) || this.ensureSpecialWidgetId("spring");
+          const trailingSpring =
+            springIds.find(widgetId => widgetId != leadingSpring) ||
+            this.ensureSpecialWidgetId("spring");
+
+          for (let index = navbarPlacements.length - 1; index >= 0; index--) {
+            if (this.matchingSpecials(navbarPlacements[index], "spring")) {
+              navbarPlacements.splice(index, 1);
+            }
+          }
+
+          const updatedUrlbarIndex = navbarPlacements.indexOf("urlbar-container");
+          navbarPlacements.splice(updatedUrlbarIndex, 0, leadingSpring);
+          navbarPlacements.push(trailingSpring);
         }
       }
     }
