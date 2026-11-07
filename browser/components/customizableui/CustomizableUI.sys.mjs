@@ -1045,24 +1045,17 @@ var CustomizableUIInternal = {
       }
     }
 
-    // Safari-style browser chrome: place reload after Smart Search and remove
-    // the default Home button unless the user has actively used it.
+    // Remove the default Home button unless the user has actively used it.
     if (currentVersion < 29) {
       const navbarPlacements = gSavedState.placements[CustomizableUI.AREA_NAVBAR];
-      if (Array.isArray(navbarPlacements)) {
-        const reloadIndex = navbarPlacements.indexOf("stop-reload-button");
-        const urlbarIndex = navbarPlacements.indexOf("urlbar-container");
-        if (reloadIndex != -1 && urlbarIndex != -1 && reloadIndex < urlbarIndex) {
-          navbarPlacements.splice(reloadIndex, 1);
-          navbarPlacements.splice(navbarPlacements.indexOf("urlbar-container") + 1, 0, "stop-reload-button");
-        }
-
-        if (!Services.prefs.getBoolPref(kPrefHomeButtonUsed, false)) {
-          const homeIndex = navbarPlacements.indexOf("home-button");
-          const defaultHomeIndex = navbarPlacements.includes("sidebar-button") ? 4 : 3;
-          if (homeIndex == defaultHomeIndex) {
-            navbarPlacements.splice(homeIndex, 1);
-          }
+      if (
+        Array.isArray(navbarPlacements) &&
+        !Services.prefs.getBoolPref(kPrefHomeButtonUsed, false)
+      ) {
+        const homeIndex = navbarPlacements.indexOf("home-button");
+        const defaultHomeIndex = navbarPlacements.includes("sidebar-button") ? 4 : 3;
+        if (homeIndex == defaultHomeIndex) {
+          navbarPlacements.splice(homeIndex, 1);
         }
       }
     }
