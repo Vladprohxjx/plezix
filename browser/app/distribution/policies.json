@@ -6,7 +6,20 @@
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/uBlock0@raymondhill.net/latest.xpi",
         "default_area": "navbar",
         "private_browsing": true
+      },
+      "jid1-MnnxcxisBPnSXQ@jetpack": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi",
+        "default_area": "navbar",
+        "private_browsing": true
       }
+    },
+    "EnableTrackingProtection": {
+      "Value": true,
+      "Locked": false,
+      "Category": "strict",
+      "BaselineExceptions": true,
+      "ConvenienceExceptions": true
     }
   }
 }
