@@ -1142,7 +1142,6 @@ var CustomizableUIInternal = {
       const navbarPlacements = gSavedState.placements[CustomizableUI.AREA_NAVBAR];
       if (Array.isArray(navbarPlacements)) {
         const reloadIndex = navbarPlacements.indexOf("stop-reload-button");
-        const backIndex = navbarPlacements.indexOf("back-button");
         const forwardIndex = navbarPlacements.indexOf("forward-button");
         if (
           reloadIndex != -1 &&
@@ -1160,7 +1159,7 @@ var CustomizableUIInternal = {
         const extensionWidgets = navbarPlacements.filter(
           widgetId =>
             widgetId == "unified-extensions-button" ||
-            this.isWebExtensionWidget(widgetId)
+            CustomizableUI.isWebExtensionWidget(widgetId)
         );
         for (const widgetId of extensionWidgets) {
           const widgetIndex = navbarPlacements.indexOf(widgetId);
