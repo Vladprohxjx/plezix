@@ -1821,7 +1821,6 @@ popupnotificationcontent {
 }
 
 #nav-bar {
-  order: 1;
   min-height: 52px;
   padding-block: 6px;
   padding-inline: 10px;
@@ -1836,7 +1835,6 @@ popupnotificationcontent {
 }
 
 #TabsToolbar {
-  order: 2;
   min-height: 43px;
   padding-block: 3px 4px;
   padding-inline: 10px;
@@ -1846,7 +1844,6 @@ popupnotificationcontent {
 }
 
 #PersonalToolbar {
-  order: 3;
   min-height: 36px;
   padding-block: 2px;
   padding-inline: 10px;
@@ -1988,12 +1985,13 @@ popupnotificationcontent {
 }
 
 #TabsToolbar .titlebar-buttonbox-container,
-#TabsToolbar .titlebar-spacer {
+#TabsToolbar .titlebar-spacer,
+#navigator-toolbox:not([tabs-hidden]) > #nav-bar > .titlebar-spacer {
   display: none;
 }
 
-/* The window controls belong to the upper Safari-like navigation row now. */
-#navigator-toolbox:not([tabs-hidden]) > #nav-bar > :is(.titlebar-buttonbox-container, .titlebar-spacer) {
+/* The native window controls belong to the upper Safari-like navigation row. */
+#navigator-toolbox:not([tabs-hidden]) > #nav-bar > .titlebar-buttonbox-container {
   display: revert;
 }
 
