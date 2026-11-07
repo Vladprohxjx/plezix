@@ -1059,7 +1059,8 @@ var CustomizableUIInternal = {
 
         if (!Services.prefs.getBoolPref(kPrefHomeButtonUsed, false)) {
           const homeIndex = navbarPlacements.indexOf("home-button");
-          if (homeIndex != -1) {
+          const defaultHomeIndex = navbarPlacements.includes("sidebar-button") ? 4 : 3;
+          if (homeIndex == defaultHomeIndex) {
             navbarPlacements.splice(homeIndex, 1);
           }
         }
