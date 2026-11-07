@@ -2362,7 +2362,8 @@ pref("sidebar.updatedBookmarks.enabled", true);
 #else
 pref("sidebar.updatedBookmarks.enabled", false);
 #endif
-pref("sidebar.openTabsPanel.enabled", false);
+// Make the open-tabs panel available as the Safari-like tab overview in the sidebar.
+pref("sidebar.openTabsPanel.enabled", true);
 pref("sidebar.openTabsPanel.collapsedWindows", "{}");
 pref("sidebar.openTabsPanel.sortOption", "tabStripOrder");
 pref("sidebar.openTabsPanel.hoverPreview.enabled", true);
