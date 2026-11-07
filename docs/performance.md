@@ -21,9 +21,29 @@ longer than a normal build, but optimizes hot code paths based on runtime data.
 LTO mode is selected by the Mozilla build system for the detected compiler and
 platform.
 
-The release configuration already requests optimized Rust compilation. Avoid
-adding `-C target-cpu=native` or other machine-specific CPU flags to distributable
-builds: they can make the binary run poorly or fail on other customers' devices.
+The Plezix performance mozconfig sets `RUSTC_OPT_LEVEL=2` for Rust code.
+Mozilla's local-build default is level 1; level 2 can improve runtime in
+Rust-heavy components such as Stylo and WebRender, at the cost of longer
+compilation. Avoid adding `-C target-cpu=native` or other machine-specific CPU
+flags to distributable builds: they can make the binary run poorly or fail on
+other customers' devices.
+
+## Desktop startup: avoid a hidden preloaded tab
+
+Plezix sets `browser.newtab.preload=false`. Firefox otherwise keeps a
+preloaded New Tab page ready in the background so that the first manually
+opened new tab appears faster. Disabling that preload avoids retaining this
+extra hidden page; the New Tab page, its search box, shortcuts, and normal
+browsing features remain available. The trade-off is that the first manually
+opened new tab may take slightly longer to appear. This setting does not change
+the configured startup homepage (`about:home`).
+
+For a meaningful startup-memory comparison, restart the same build and profile,
+leave one window on the same startup page, and measure after the browser settles.
+Use `about:memory` to inspect per-process `resident` and
+`resident-unique` values; the Windows Task Manager's sum of process working
+sets can count shared pages more than once. See the Mozilla memory guide for
+how to create an anonymized report.
 
 ## Desktop: memory-focused browsing
 
