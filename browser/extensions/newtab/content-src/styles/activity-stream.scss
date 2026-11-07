@@ -277,7 +277,7 @@ panel-list:not(:defined) {
   color: var(--text-color);
 }
 
-.activity-stream body {
+body.activity-stream {
   background-color: var(--plezix-ntp-background);
 }
 
@@ -359,6 +359,11 @@ panel-list:not(:defined) {
   max-width: 920px;
   margin-inline: auto;
   justify-self: center;
+}
+
+/* Override Nova's default row placement, which reserves space for a news feed. */
+.activity-stream .nova-enabled.container:has(> .search-wrapper) .content {
+  grid-row: 2;
 }
 
 .activity-stream .nova-enabled .content > .top-sites {
