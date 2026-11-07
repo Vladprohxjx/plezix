@@ -1956,8 +1956,10 @@ pref("browser.topsites.useRemoteSetting", true);
 pref("browser.topsites.contile.enabled", true);
 pref("browser.topsites.contile.endpoint", "https://contile.services.mozilla.com/v1/tiles");
 
-// Activates preloading of the new tab url.
-pref("browser.newtab.preload", true);
+// Do not keep a hidden New Tab page preloaded in the background.
+// This saves startup/background memory; the first manually opened new tab may
+// take slightly longer to become ready. The New Tab page remains fully enabled.
+pref("browser.newtab.preload", false);
 
 // For further detail on the TOU prefs below, see the `preonboarding` feature in
 // FeatureManifest.yaml
