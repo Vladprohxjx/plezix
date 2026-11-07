@@ -251,3 +251,227 @@ panel-list:not(:defined) {
 @import '../components/Widgets/WidgetsRowAd';
 
 // stylelint-enable no-invalid-position-at-import-rule
+
+/* ==========================================================================
+   Plezix Safari Start Page.
+   Native Firefox search and Top Sites components are retained; this only
+   changes the New Tab page's presentation and default content mix.
+   ========================================================================== */
+
+:root {
+  --plezix-ntp-background: light-dark(#f4f5f7, #202124);
+  --plezix-ntp-surface: light-dark(#ffffff, #303136);
+  --plezix-ntp-surface-hover: light-dark(#f9fafb, #3a3b41);
+  --plezix-ntp-border: light-dark(rgb(0 0 0 / 8%), rgb(255 255 255 / 9%));
+  --plezix-ntp-muted: light-dark(#72747c, #a7a8af);
+  --plezix-ntp-shadow: 0 2px 8px rgb(0 0 0 / 7%);
+
+  --newtab-background-color: var(--plezix-ntp-background);
+  --newtab-background-color-secondary: var(--plezix-ntp-surface);
+  --newtab-background-card: var(--plezix-ntp-surface);
+  --newtab-element-secondary-color: color-mix(in srgb, currentColor 5%, transparent);
+  --newtab-element-secondary-hover-color: color-mix(in srgb, currentColor 9%, transparent);
+}
+
+.activity-stream {
+  color: var(--text-color);
+}
+
+.activity-stream body {
+  background-color: var(--plezix-ntp-background);
+}
+
+/* A centered start page with breathing room, without Firefox's side rails. */
+.activity-stream .nova-outer-wrapper {
+  min-height: 100vh;
+  padding-block: clamp(72px, 12vh, 142px) 64px;
+}
+
+.activity-stream .nova-enabled.container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0;
+  width: min(100%, 1120px);
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: clamp(18px, 4vw, 54px);
+  justify-content: center;
+  align-content: start;
+}
+
+.activity-stream .nova-enabled.container > .sidebar-inline-start,
+.activity-stream .nova-enabled.container > .sidebar-inline-end,
+.activity-stream .nova-enabled.container > .sticky-search-sentinel {
+  display: none;
+}
+
+.activity-stream .nova-enabled.container > .search-wrapper {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  width: 100%;
+  margin: 0 auto 42px;
+  padding: 0;
+  inset: auto;
+  z-index: auto;
+}
+
+.activity-stream .nova-enabled.container > .search-wrapper .logo-and-wordmark-wrapper,
+.activity-stream .nova-enabled.container .logo-and-wordmark-wrapper {
+  display: none;
+}
+
+/* The smart search field is the visual focus, like Safari's Start Page. */
+.activity-stream .nova-enabled .search-inner-wrapper {
+  width: min(100%, 720px);
+  max-width: 720px;
+  height: 54px;
+  margin-inline: auto;
+}
+
+.activity-stream .nova-enabled .search-inner-wrapper moz-urlbar {
+  --urlbar-height: 54px;
+  --urlbar-background-border-radius: 999px;
+  --urlbar-background-color: var(--plezix-ntp-surface);
+  --urlbar-background-color-focus: var(--plezix-ntp-surface);
+  --urlbar-background-border: 1px solid var(--plezix-ntp-border);
+  --urlbar-background-border-focused: 1px solid color-mix(in srgb, var(--color-accent-primary) 55%, transparent);
+  --urlbar-background-box-shadow: var(--plezix-ntp-shadow);
+}
+
+.activity-stream .nova-enabled .search-inner-wrapper content-search-handoff-ui {
+  --content-search-handoff-ui-background-color: var(--plezix-ntp-surface);
+  --content-search-handoff-ui-color: var(--text-color);
+  --content-search-handoff-ui-fill: var(--plezix-ntp-muted);
+  --content-search-handoff-ui-caret-color: var(--text-color);
+  --content-search-handoff-ui-fakefocus-border-color: var(--plezix-ntp-border);
+  --content-search-handoff-ui-fakefocus-box-shadow-inner: transparent;
+  --content-search-handoff-ui-fakefocus-box-shadow-outer: transparent;
+}
+
+/* Center the Favorites grid and use Safari-like compact icon tiles. */
+.activity-stream .nova-enabled .content {
+  grid-column: 1;
+  grid-row: 2;
+  display: block;
+  width: 100%;
+  max-width: 920px;
+  margin-inline: auto;
+  justify-self: center;
+}
+
+.activity-stream .nova-enabled .content > .top-sites {
+  width: 100%;
+  margin: 0;
+}
+
+.activity-stream .nova-enabled .top-sites-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 104px);
+  justify-content: center;
+  justify-items: center;
+  gap: 18px 14px;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.activity-stream .nova-enabled .top-site-outer {
+  width: 104px;
+  margin: 0;
+  border-radius: 14px;
+}
+
+.activity-stream .nova-enabled .top-site-inner > .top-site-button {
+  padding: 8px 4px 4px;
+}
+
+.activity-stream .nova-enabled .top-site-outer .tile {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+  border: 1px solid var(--plezix-ntp-border);
+  border-radius: 17px;
+  background: var(--plezix-ntp-surface);
+  box-shadow: var(--plezix-ntp-shadow);
+  transition: transform 140ms ease, background-color 140ms ease, box-shadow 140ms ease;
+}
+
+.activity-stream .nova-enabled .top-site-outer:hover .tile {
+  background: var(--plezix-ntp-surface-hover);
+  box-shadow: 0 5px 16px rgb(0 0 0 / 10%);
+  transform: translateY(-2px);
+}
+
+.activity-stream .nova-enabled .top-site-outer .icon-wrapper {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+}
+
+.activity-stream .nova-enabled .top-site-outer .top-site-icon.rich-icon {
+  border-radius: 12px;
+  background-size: contain;
+}
+
+.activity-stream .nova-enabled .top-site-outer .title {
+  padding-block-start: 10px;
+  color: var(--text-color);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.activity-stream .nova-enabled .top-site-outer .title-label {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.activity-stream .nova-enabled .top-site-outer .context-menu-button {
+  border-radius: 999px;
+}
+
+/* Keep the native Start Page customization control, but soften its surface. */
+.activity-stream .personalizeButtonWrapper {
+  border: 1px solid var(--plezix-ntp-border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--plezix-ntp-surface) 88%, transparent);
+  box-shadow: var(--plezix-ntp-shadow);
+  backdrop-filter: blur(16px);
+}
+
+@media (max-width: 700px) {
+  .activity-stream .nova-outer-wrapper {
+    padding-block-start: 48px;
+  }
+
+  .activity-stream .nova-enabled.container {
+    padding-inline: 14px;
+  }
+
+  .activity-stream .nova-enabled .top-sites-list {
+    grid-template-columns: repeat(auto-fit, 92px);
+    gap: 12px 8px;
+  }
+
+  .activity-stream .nova-enabled .top-site-outer {
+    width: 92px;
+  }
+
+  .activity-stream .nova-enabled .top-site-outer .tile {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .activity-stream .nova-enabled .top-site-outer .tile {
+    transition: none;
+  }
+}
+
