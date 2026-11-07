@@ -358,24 +358,21 @@ var CustomizableUIInternal = {
       false
     );
 
+    // Plezix keeps the main toolbar deliberately close to Safari's layout:
+    // sidebar and navigation controls on the left, a centered smart field,
+    // then downloads and extensions on the right. Less-used browser actions
+    // remain available from the application menu and toolbar customization.
     let navbarPlacements = [
       lazy.sidebarRevampEnabled ? "sidebar-button" : null,
       "back-button",
       "forward-button",
       "stop-reload-button",
-      Services.policies.isAllowed("removeHomeButtonByDefault")
-        ? null
-        : "home-button",
       "spring",
       "vertical-spacer",
       "urlbar-container",
       "spring",
       "downloads-button",
       AppConstants.MOZ_DEV_EDITION ? "developer-button" : null,
-      lazy.ippEnabled ? "ipprotection-button" : null,
-      "fxa-toolbar-menu-button",
-      lazy.resetPBMToolbarButtonEnabled ? "reset-pbm-toolbar-button" : null,
-      lazy.fireButtonEnabled ? "fire-button" : null,
     ].filter(name => name);
 
     this.registerArea(
