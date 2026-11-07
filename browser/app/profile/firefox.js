@@ -3966,3 +3966,17 @@ pref("distribution.mozillaonline.ignore", true);
 // Private Browsing. Users can change this preference from Firefox's privacy
 // settings or about:config.
 pref("privacy.globalprivacycontrol.enabled", true);
+
+ 
+// Plezix Safari-style Start Page defaults.
+// Keep search and user shortcuts; omit the news feed, sponsored tiles, and logo.
+pref("browser.newtabpage.activity-stream.showSearch", true);
+pref("browser.newtabpage.activity-stream.feeds.topsites", true);
+pref("browser.newtabpage.activity-stream.topSitesRows", 2);
+pref("browser.newtabpage.activity-stream.showSponsored", false);
+pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
+pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
+pref("browser.newtabpage.activity-stream.feeds.section.highlights", false);
+pref("browser.newtabpage.activity-stream.discoverystream.enabled", false);
+pref("browser.newtabpage.activity-stream.showWeather", false);
+pref("browser.newtabpage.activity-stream.logowordmark.alwaysVisible", false);
