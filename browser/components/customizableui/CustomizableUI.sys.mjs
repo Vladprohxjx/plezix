@@ -62,7 +62,7 @@ const kSubviewEvents = ["ViewShowing", "ViewHiding"];
  * The current version. We can use this to auto-add new default widgets as necessary.
  * (would be const but isn't because of testing purposes)
  */
-var kVersion = 29;
+var kVersion = 30;
 
 /**
  * Buttons removed from built-ins by version they were removed. kVersion must be
@@ -372,6 +372,9 @@ var CustomizableUIInternal = {
       "urlbar-container",
       "spring",
       "downloads-button",
+      Services.prefs.getBoolPref("browser.toolbars.share-button.enabled", false)
+        ? "share-tab-button"
+        : null,
       AppConstants.MOZ_DEV_EDITION ? "developer-button" : null,
     ].filter(name => name);
 
@@ -1093,6 +1096,55 @@ var CustomizableUIInternal = {
           "urlbar-container",
           "spring",
           "downloads-button",
+          AppConstants.MOZ_DEV_EDITION ? "developer-button" : null,
+        ].filter(Boolean);
+      }
+    }
+
+    // Add Safari's native Share control to profiles that still use the
+    // unmodified Plezix toolbar from version 29. Customized toolbars are kept.
+    if (currentVersion < 30) {
+      const navbar = gSavedState.placements[CustomizableUI.AREA_NAVBAR];
+      const previousDefault = [
+        lazy.sidebarRevampEnabled ? "sidebar-button" : null,
+        "back-button",
+        "forward-button",
+        "stop-reload-button",
+        "spring",
+        "vertical-spacer",
+        "urlbar-container",
+        "spring",
+        "downloads-button",
+        AppConstants.MOZ_DEV_EDITION ? "developer-button" : null,
+      ].filter(Boolean);
+
+      const isSpring = id =>
+        id === "spring" ||
+        (typeof id === "string" &&
+          id.startsWith(kSpecialWidgetPfx + "spring"));
+      const stillUsesPlezixDefaults =
+        Array.isArray(navbar) &&
+        navbar.length === previousDefault.length &&
+        navbar.every((id, index) =>
+          previousDefault[index] === "spring"
+            ? isSpring(id)
+            : id === previousDefault[index]
+        );
+
+      if (stillUsesPlezixDefaults) {
+        gSavedState.placements[CustomizableUI.AREA_NAVBAR] = [
+          lazy.sidebarRevampEnabled ? "sidebar-button" : null,
+          "back-button",
+          "forward-button",
+          "stop-reload-button",
+          "spring",
+          "vertical-spacer",
+          "urlbar-container",
+          "spring",
+          "downloads-button",
+          Services.prefs.getBoolPref("browser.toolbars.share-button.enabled", false)
+            ? "share-tab-button"
+            : null,
           AppConstants.MOZ_DEV_EDITION ? "developer-button" : null,
         ].filter(Boolean);
       }
