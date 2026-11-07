@@ -1047,7 +1047,7 @@ var CustomizableUIInternal = {
         CustomizableUIInternal.saveHorizontalTabStripState(horizontalSnapshot);
       }
     }
-    
+
     // Reorder only profiles that still use the untouched previous Plezix
     // defaults. Keep any toolbar the user has customized exactly as they set it.
     if (currentVersion < 29) {
