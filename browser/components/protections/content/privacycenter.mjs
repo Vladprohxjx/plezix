@@ -85,20 +85,28 @@ function refreshPrivacyStatus() {
   const dohDetail = document.getElementById("doh-detail");
   if (trrMode === 2) {
     dohNode.dataset.state = "on";
-    dohNode.textContent = "Строгий DoH";
-    dohDetail.textContent = "DNS-запросы направляются через DNS-over-HTTPS без обычного DNS fallback.";
-  } else if (trrMode === 3 || trrMode === 4) {
-    dohNode.dataset.state = "on";
     dohNode.textContent = "DoH с fallback";
-    dohDetail.textContent = "Используется зашифрованный DNS с возможностью перехода на системный DNS.";
+    dohDetail.textContent =
+      "Сначала используется DNS-over-HTTPS; при некоторых сбоях возможен переход на системный DNS.";
+  } else if (trrMode === 3) {
+    dohNode.dataset.state = "on";
+    dohNode.textContent = "Только DoH";
+    dohDetail.textContent =
+      "Обычные DNS-запросы идут через DNS-over-HTTPS без обычного fallback. Системный DNS всё ещё может использоваться для служебных задач.";
   } else if (trrMode === 5) {
     dohNode.dataset.state = "off";
-    dohNode.textContent = "Отключён";
-    dohDetail.textContent = "Браузер использует обычный DNS из сетевых настроек.";
+    dohNode.textContent = "Отключён пользователем";
+    dohDetail.textContent = "DNS-over-HTTPS явно отключён в настройках браузера.";
+  } else if (trrMode === 0) {
+    dohNode.dataset.state = "off";
+    dohNode.textContent = "Автоматический режим";
+    dohDetail.textContent =
+      "Режим DoH не задан вручную; Firefox может применять настройки и доступность провайдера.";
   } else {
     dohNode.dataset.state = "off";
-    dohNode.textContent = "Системная настройка";
-    dohDetail.textContent = "Режим DNS-over-HTTPS не принудительно задан Plezix.";
+    dohNode.textContent = "Другой режим";
+    dohDetail.textContent =
+      "Используется специальный или зарезервированный режим DNS. Проверьте сетевые настройки Firefox.";
   }
 
   document.getElementById("privacy-center").dataset.category = category;
