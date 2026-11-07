@@ -1829,13 +1829,14 @@ popupnotificationcontent {
 }
 
 #nav-bar-customization-target > toolbarspring {
+  flex: 1 1 0;
   min-width: var(--space-large);
 }
 
 /* The Smart Search field is centered and gets the widest visual emphasis. */
 #urlbar-container,
 #wrapper-urlbar-container {
-  flex: 2 1 var(--urlbar-container-min-width);
+  flex: 1 1 var(--urlbar-container-min-width);
   min-width: min(var(--urlbar-container-min-width), 34vw);
   max-width: min(48vw, calc(var(--urlbar-container-min-width) * 2.25));
   margin-inline: var(--space-small);
