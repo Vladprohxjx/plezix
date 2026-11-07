@@ -1,0 +1,174 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src chrome:; img-src chrome: data:; style-src chrome: 'unsafe-inline'; script-src chrome:; object-src 'none'"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="chrome://global/skin/in-content/common.css" />
+    <link rel="stylesheet" href="chrome://browser/content/privacycenter.css" />
+    <script type="module" src="chrome://browser/content/privacycenter.mjs"></script>
+    <title>Plezix — Центр конфиденциальности</title>
+  </head>
+  <body>
+    <main id="privacy-center">
+      <header class="hero">
+        <div class="brand-mark" aria-hidden="true">P</div>
+        <div class="hero-copy">
+          <p class="eyebrow">PLEZIX · БЕЗОПАСНОСТЬ И ПРИВАТНОСТЬ</p>
+          <h1>Центр конфиденциальности</h1>
+          <p class="intro">
+            Контролируйте защиту от отслеживания, cookie и нежелательных
+            подключений в одном месте.
+          </p>
+        </div>
+        <div id="overall-status" class="overall-status" data-state="checking" role="status" aria-live="polite">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="overall-status-text">Проверяем защиту…</span>
+        </div>
+      </header>
+
+      <section class="section" aria-labelledby="protection-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">СЕЙЧАС</p>
+            <h2 id="protection-heading">Состояние защиты</h2>
+          </div>
+          <a class="subtle-link" href="about:protections">Отчёт защиты <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <div class="status-grid">
+          <article class="status-card status-card-featured">
+            <div class="card-icon" aria-hidden="true">◈</div>
+            <div class="card-content">
+              <h3>Защита от отслеживания</h3>
+              <p id="tracking-status" class="state-value" data-state="checking">Проверяем…</p>
+              <p id="tracking-detail" class="card-description">
+                Встроенная защита Firefox блокирует известные трекеры.
+              </p>
+            </div>
+          </article>
+
+          <article class="status-card">
+            <div class="card-icon" aria-hidden="true">◉</div>
+            <div class="card-content">
+              <h3>Изоляция cookie</h3>
+              <p id="cookie-status" class="state-value" data-state="checking">Проверяем…</p>
+              <p class="card-description">Сторонние cookie не должны свободно объединять активность между сайтами.</p>
+            </div>
+          </article>
+
+          <article class="status-card">
+            <div class="card-icon" aria-hidden="true">⌁</div>
+            <div class="card-content">
+              <h3>Защита от fingerprinting</h3>
+              <p id="fingerprint-status" class="state-value" data-state="checking">Проверяем…</p>
+              <p class="card-description">Ограничивает известные методы цифрового отпечатка браузера.</p>
+            </div>
+          </article>
+
+          <article class="status-card">
+            <div class="card-icon" aria-hidden="true">⛨</div>
+            <div class="card-content">
+              <h3>Защита от криптомайнеров</h3>
+              <p id="cryptominer-status" class="state-value" data-state="checking">Проверяем…</p>
+              <p class="card-description">Блокирует известные скрипты скрытого майнинга.</p>
+            </div>
+          </article>
+
+          <article class="status-card">
+            <div class="card-icon" aria-hidden="true">◎</div>
+            <div class="card-content">
+              <h3>Global Privacy Control</h3>
+              <p id="gpc-status" class="state-value" data-state="checking">Проверяем…</p>
+              <p class="card-description">Передаёт сайтам сигнал о предпочтении не продавать и не передавать данные.</p>
+            </div>
+          </article>
+
+          <article class="status-card">
+            <div class="card-icon" aria-hidden="true">⌕</div>
+            <div class="card-content">
+              <h3>DNS over HTTPS</h3>
+              <p id="doh-status" class="state-value" data-state="checking">Проверяем…</p>
+              <p id="doh-detail" class="card-description">Шифрование DNS-запросов зависит от настроек сети.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="blockers-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">РАСШИРЕНИЯ PLEZIX</p>
+            <h2 id="blockers-heading">Блокировщики</h2>
+          </div>
+          <a class="subtle-link" href="about:addons">Управление расширениями <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="extension-list">
+          <div class="extension-row">
+            <div class="extension-icon ublock-icon" aria-hidden="true">u</div>
+            <div class="extension-copy">
+              <h3>uBlock Origin</h3>
+              <p>Фильтрация рекламы, трекеров и нежелательных запросов.</p>
+            </div>
+            <span class="extension-tag">Автоустановка включена</span>
+          </div>
+          <div class="extension-row">
+            <div class="extension-icon badger-icon" aria-hidden="true">B</div>
+            <div class="extension-copy">
+              <h3>Privacy Badger</h3>
+              <p>Обнаруживает сторонние трекеры по их поведению.</p>
+            </div>
+            <span class="extension-tag">Автоустановка включена</span>
+          </div>
+          <p class="notice">
+            Статус установки и разрешения расширений можно проверить в менеджере дополнений.
+            Для первой установки требуется подключение к интернету.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="actions-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">БЫСТРЫЙ ДОСТУП</p>
+            <h2 id="actions-heading">Управление приватностью</h2>
+          </div>
+        </div>
+        <div class="actions-grid">
+          <a class="action-card" href="about:preferences#privacy">
+            <span class="action-symbol" aria-hidden="true">⚙</span>
+            <span><strong>Настройки приватности</strong><small>Защита, cookie и DNS</small></span>
+            <span class="action-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="action-card" href="about:addons">
+            <span class="action-symbol" aria-hidden="true">＋</span>
+            <span><strong>Расширения</strong><small>Блокировщики и разрешения</small></span>
+            <span class="action-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="action-card" href="about:preferences#privacy">
+            <span class="action-symbol" aria-hidden="true">⌖</span>
+            <span><strong>Разрешения сайтов</strong><small>Камера, микрофон и геолокация</small></span>
+            <span class="action-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="action-card" href="about:policies">
+            <span class="action-symbol" aria-hidden="true">▤</span>
+            <span><strong>Политики браузера</strong><small>Проверить активные настройки Plezix</small></span>
+            <span class="action-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>Plezix Privacy Center</span>
+        <span>Статусы считываются из текущих настроек браузера.</span>
+      </footer>
+    </main>
+  </body>
+</html>
