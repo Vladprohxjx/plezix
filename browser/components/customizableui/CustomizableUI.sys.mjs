@@ -62,7 +62,7 @@ const kSubviewEvents = ["ViewShowing", "ViewHiding"];
  * The current version. We can use this to auto-add new default widgets as necessary.
  * (would be const but isn't because of testing purposes)
  */
-var kVersion = 29;
+var kVersion = 30;
 
 /**
  * Buttons removed from built-ins by version they were removed. kVersion must be
@@ -1062,6 +1062,40 @@ var CustomizableUIInternal = {
           const defaultHomeIndex = navbarPlacements.includes("sidebar-button") ? 4 : 3;
           if (homeIndex == defaultHomeIndex) {
             navbarPlacements.splice(homeIndex, 1);
+          }
+        }
+      }
+    }
+
+    // Keep pinned WebExtension buttons together with Smart Search so the
+    // address bar and extensions form a centered group. The flexible space
+    // after the group then separates it from downloads and account actions.
+    if (currentVersion < 30) {
+      const navbarPlacements = gSavedState.placements[CustomizableUI.AREA_NAVBAR];
+      if (Array.isArray(navbarPlacements)) {
+        const pinnedExtensionWidgets = navbarPlacements.filter(widgetId =>
+          CustomizableUI.isWebExtensionWidget(widgetId)
+        );
+
+        if (pinnedExtensionWidgets.length) {
+          for (const widgetId of pinnedExtensionWidgets) {
+            const widgetIndex = navbarPlacements.indexOf(widgetId);
+            if (widgetIndex != -1) {
+              navbarPlacements.splice(widgetIndex, 1);
+            }
+          }
+
+          const reloadIndex = navbarPlacements.indexOf("stop-reload-button");
+          const urlbarIndex = navbarPlacements.indexOf("urlbar-container");
+          const centerGroupEndIndex =
+            reloadIndex != -1 ? reloadIndex : urlbarIndex;
+
+          if (centerGroupEndIndex != -1) {
+            navbarPlacements.splice(
+              centerGroupEndIndex + 1,
+              0,
+              ...pinnedExtensionWidgets
+            );
           }
         }
       }
