@@ -466,15 +466,14 @@ this.browserAction = class extends ExtensionAPIPersistent {
       },
     });
 
-    // Keep pinned extension buttons next to Smart Search instead of leaving
-    // them at the far end of the navigation toolbar.
+    // Keep pinned extension buttons immediately after Smart Search.
     if (widget.currentArea == CustomizableUI.AREA_NAVBAR) {
       const placements = CustomizableUI.getWidgetIdsInArea(
         CustomizableUI.AREA_NAVBAR
       );
-      const reloadIndex = placements.indexOf("stop-reload-button");
-      if (reloadIndex != -1) {
-        let groupEndIndex = reloadIndex + 1;
+      const urlbarIndex = placements.indexOf("urlbar-container");
+      if (urlbarIndex != -1) {
+        let groupEndIndex = urlbarIndex + 1;
         while (
           groupEndIndex < placements.length &&
           CustomizableUI.isWebExtensionWidget(placements[groupEndIndex])
