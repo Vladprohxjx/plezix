@@ -466,6 +466,32 @@ this.browserAction = class extends ExtensionAPIPersistent {
       },
     });
 
+    // Keep pinned extension buttons next to Smart Search instead of leaving
+    // them at the far end of the navigation toolbar.
+    if (widget.currentArea == CustomizableUI.AREA_NAVBAR) {
+      const placements = CustomizableUI.getWidgetIdsInArea(
+        CustomizableUI.AREA_NAVBAR
+      );
+      const reloadIndex = placements.indexOf("stop-reload-button");
+      if (reloadIndex != -1) {
+        let groupEndIndex = reloadIndex + 1;
+        while (
+          groupEndIndex < placements.length &&
+          CustomizableUI.isWebExtensionWidget(placements[groupEndIndex])
+        ) {
+          groupEndIndex++;
+        }
+
+        if (placements.indexOf(widget.id) != groupEndIndex) {
+          CustomizableUI.addWidgetToArea(
+            widget.id,
+            CustomizableUI.AREA_NAVBAR,
+            groupEndIndex
+          );
+        }
+      }
+    }
+
     if (this.extension.startupReason != "APP_STARTUP") {
       // Make sure the browser telemetry has the correct state for this widget.
       // Defer loading BrowserUsageTelemetry until after startup is complete.
