@@ -2007,6 +2007,7 @@ pref("browser.newtabpage.activity-stream.unifiedAds.adsFeed.enabled", false);
 pref("browser.newtabpage.activity-stream.unifiedAds.ohttp.enabled", true);
 
 // Weather widget for newtab
+pref("browser.newtabpage.activity-stream.showWeather", false);
 pref("browser.newtabpage.activity-stream.weather.query", "");
 pref("browser.newtabpage.activity-stream.weather.display", "detailed");
 
@@ -2112,6 +2113,7 @@ pref("messaging-system.askForFeedback", true);
 pref("browser.newtabpage.activity-stream.asrouter.useRemoteL10n", true);
 
 // These prefs control if Discovery Stream is enabled.
+pref("browser.newtabpage.activity-stream.discoverystream.enabled", false);
 pref("browser.newtabpage.activity-stream.discoverystream.hardcoded-basic-layout", false);
 pref("browser.newtabpage.activity-stream.discoverystream.hybridLayout.enabled", false);
 pref("browser.newtabpage.activity-stream.discoverystream.hideCardBackground.enabled", false);
@@ -2235,6 +2237,7 @@ pref("browser.newtabpage.activity-stream.discoverystream.publisherFavicon.enable
 
 // The pref controls if search hand-off is enabled for Activity Stream.
 pref("browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar", true);
+pref("browser.newtabpage.activity-stream.logowordmark.alwaysVisible", false);
 
 
 // URLs from the user's history that contain this search param will be hidden
@@ -3964,7 +3967,6 @@ pref("distribution.mozillaonline.ignore", true);
 // settings or about:config.
 pref("privacy.globalprivacycontrol.enabled", true);
 
- 
 // Plezix Safari-style Start Page defaults.
 // Keep search and user shortcuts; omit the news feed, sponsored tiles, and logo.
 pref("browser.newtabpage.activity-stream.showSearch", true);
@@ -3974,6 +3976,3 @@ pref("browser.newtabpage.activity-stream.showSponsored", false);
 pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
 pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
 pref("browser.newtabpage.activity-stream.feeds.section.highlights", false);
-pref("browser.newtabpage.activity-stream.discoverystream.enabled", false);
-pref("browser.newtabpage.activity-stream.showWeather", false);
-pref("browser.newtabpage.activity-stream.logowordmark.alwaysVisible", false);
