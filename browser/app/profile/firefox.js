@@ -3959,3 +3959,9 @@ pref("distribution.mozillaonline.ignore", true);
 #ifdef XP_MACOSX
   pref("browser.macAppMenu.setAsDefaultShown", false);
 #endif
+
+// Plezix privacy defaults.
+// Send the Global Privacy Control signal in regular browsing as well as
+// Private Browsing. Users can change this preference from Firefox's privacy
+// settings or about:config.
+pref("privacy.globalprivacycontrol.enabled", true);
