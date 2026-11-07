@@ -62,7 +62,7 @@ const kSubviewEvents = ["ViewShowing", "ViewHiding"];
  * The current version. We can use this to auto-add new default widgets as necessary.
  * (would be const but isn't because of testing purposes)
  */
-var kVersion = 28;
+var kVersion = 29;
 
 /**
  * Buttons removed from built-ins by version they were removed. kVersion must be
@@ -1042,6 +1042,59 @@ var CustomizableUIInternal = {
       if (horizontalSnapshot.length) {
         restoreFlexibleSpace(horizontalSnapshot);
         CustomizableUIInternal.saveHorizontalTabStripState(horizontalSnapshot);
+      }
+    }
+    
+    // Reorder only profiles that still use the untouched previous Plezix
+    // defaults. Keep any toolbar the user has customized exactly as they set it.
+    if (currentVersion < 29) {
+      const navbar = gSavedState.placements[CustomizableUI.AREA_NAVBAR];
+      const previousDefault = [
+        lazy.sidebarRevampEnabled ? "sidebar-button" : null,
+        "back-button",
+        "forward-button",
+        "stop-reload-button",
+        Services.policies.isAllowed("removeHomeButtonByDefault")
+          ? null
+          : "home-button",
+        "spring",
+        "vertical-spacer",
+        "urlbar-container",
+        "spring",
+        "downloads-button",
+        AppConstants.MOZ_DEV_EDITION ? "developer-button" : null,
+        lazy.ippEnabled ? "ipprotection-button" : null,
+        "fxa-toolbar-menu-button",
+        lazy.resetPBMToolbarButtonEnabled ? "reset-pbm-toolbar-button" : null,
+        lazy.fireButtonEnabled ? "fire-button" : null,
+      ].filter(Boolean);
+
+      const isSpring = id =>
+        id === "spring" ||
+        (typeof id === "string" &&
+          id.startsWith(kSpecialWidgetPfx + "spring"));
+      const stillUsesPreviousDefaults =
+        Array.isArray(navbar) &&
+        navbar.length === previousDefault.length &&
+        navbar.every((id, index) =>
+          previousDefault[index] === "spring"
+            ? isSpring(id)
+            : id === previousDefault[index]
+        );
+
+      if (stillUsesPreviousDefaults) {
+        gSavedState.placements[CustomizableUI.AREA_NAVBAR] = [
+          lazy.sidebarRevampEnabled ? "sidebar-button" : null,
+          "back-button",
+          "forward-button",
+          "stop-reload-button",
+          "spring",
+          "vertical-spacer",
+          "urlbar-container",
+          "spring",
+          "downloads-button",
+          AppConstants.MOZ_DEV_EDITION ? "developer-button" : null,
+        ].filter(Boolean);
       }
     }
   },
