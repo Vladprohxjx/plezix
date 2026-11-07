@@ -2007,7 +2007,6 @@ pref("browser.newtabpage.activity-stream.unifiedAds.adsFeed.enabled", false);
 pref("browser.newtabpage.activity-stream.unifiedAds.ohttp.enabled", true);
 
 // Weather widget for newtab
-pref("browser.newtabpage.activity-stream.showWeather", true);
 pref("browser.newtabpage.activity-stream.weather.query", "");
 pref("browser.newtabpage.activity-stream.weather.display", "detailed");
 
@@ -2113,7 +2112,6 @@ pref("messaging-system.askForFeedback", true);
 pref("browser.newtabpage.activity-stream.asrouter.useRemoteL10n", true);
 
 // These prefs control if Discovery Stream is enabled.
-pref("browser.newtabpage.activity-stream.discoverystream.enabled", true);
 pref("browser.newtabpage.activity-stream.discoverystream.hardcoded-basic-layout", false);
 pref("browser.newtabpage.activity-stream.discoverystream.hybridLayout.enabled", false);
 pref("browser.newtabpage.activity-stream.discoverystream.hideCardBackground.enabled", false);
@@ -2238,7 +2236,6 @@ pref("browser.newtabpage.activity-stream.discoverystream.publisherFavicon.enable
 // The pref controls if search hand-off is enabled for Activity Stream.
 pref("browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar", true);
 
-pref("browser.newtabpage.activity-stream.logowordmark.alwaysVisible", true);
 
 // URLs from the user's history that contain this search param will be hidden
 // from the top sites. The value is a string with one of the following forms:
