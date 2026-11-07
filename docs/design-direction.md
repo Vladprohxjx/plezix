@@ -1,29 +1,25 @@
-# Plezix interface direction
+# Plezix browser interface
 
-Plezix is moving toward a quieter, Safari-inspired desktop interface while
-keeping Firefox's flexibility, recognizable warmth, and native browser
-behavior.
+Plezix is moving toward a Safari-like desktop browser window while preserving
+Firefox's engine, native browser commands, accessibility, customization, and
+extension support.
 
 ## Visual principles
 
-- Compact browser chrome with clear hierarchy and fewer hard separators.
-- Rounded address/search field and restrained capsule-style tabs.
-- Neutral light/dark surfaces with a small warm Firefox-inspired accent.
-- Preserve native Firefox controls, keyboard behavior, accessibility, themes,
-  customization, and extension support unless a later change deliberately
-  replaces them.
+- Safari-style order: navigation toolbar, tab strip, then favorites/bookmarks.
+- Centered rounded smart search, joined back/forward controls, and compact toolbar buttons.
+- Separate rounded tabs with restrained light/dark materials.
+- A native browser sidebar for open tabs, bookmarks, history, synced tabs, and passwords.
+- A Safari-like Start Page built from the user's own shortcuts and search, without a news feed or sponsored tiles.
+- Keep the small warm Plezix/Firefox accent; do not imitate macOS window controls on Windows.
 
-## Rollout
+## Scope and rollout
 
-1. **Browser shell** — tabs, navigation toolbar, address field, and bookmarks
-   toolbar. This is the first visual pass.
-2. **New Tab / Home** — simplify the start page and align cards, search, and
-   shortcuts with the same visual language.
-3. **Panels and sidebar** — refine downloads, bookmarks, history, extensions,
-   and sidebar surfaces without duplicating native Firefox features.
-4. **Settings and details** — unify preferences, dialogs, context menus, and
-   smaller browser surfaces.
+1. **Browser window** — navigation row, tabs, toolbar items, bookmarks row, and sidebar.
+2. **Start Page** — centered search, Favorites shortcuts, native wallpaper/customization support.
+3. **Browser panels** — downloads, bookmarks, tab overview, and extension menus.
 
-Changes should be incremental and tested on Windows first, then checked for
-macOS/Linux regressions. Avoid introducing always-running background services
-or heavy extensions for visual features.
+The redesign intentionally excludes Settings pages and internal diagnostic/about pages.
+Changes should be checked on Windows first, then reviewed for macOS/Linux and
+accessibility regressions. Avoid always-running background services or heavy
+extensions for visual features.
