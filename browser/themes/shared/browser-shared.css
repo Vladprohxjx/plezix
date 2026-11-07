@@ -1791,3 +1791,102 @@ popupnotificationcontent {
 #bookmarksToolbarFolderMenu {
   --menuitem-icon: url("chrome://browser/skin/places/bookmarksToolbar.svg");
 }
+
+/* ==========================================================================
+   Plezix visual direction: quiet Safari-like chrome, Firefox personality.
+   Keep these overrides at the end of the shared browser theme so they apply
+   consistently on Windows, macOS, and Linux without changing browser layout.
+   ========================================================================== */
+
+:root {
+  --plezix-chrome-background: light-dark(#f3f4f7, #24262c);
+  --plezix-chrome-separator: light-dark(#dfe2e8, #3b3e46);
+  --plezix-toolbar-field: light-dark(#ffffff, #30343b);
+  --plezix-toolbar-field-border: light-dark(#d7dbe3, #474b55);
+  --plezix-firefox-accent: light-dark(#e46b36, #ff8954);
+
+  --toolbarbutton-border-radius: 9px;
+}
+
+/* One calm surface behind the browser controls. */
+#navigator-toolbox,
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar {
+  background-color: var(--plezix-chrome-background);
+}
+
+#TabsToolbar {
+  padding-block: 2px 0;
+}
+
+#tabbrowser-tabs {
+  --tab-border-radius: 10px;
+  --tab-margin-block: 4px;
+}
+
+/* Tabs read as separate, quiet capsules instead of hard-edged browser chrome. */
+.tab-background {
+  border-radius: 10px;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.tabbrowser-tab:not([selected]):hover .tab-background {
+  background-color: color-mix(in srgb, currentColor 7%, transparent);
+}
+
+.tabbrowser-tab[selected] .tab-background {
+  background-color: var(--plezix-toolbar-field);
+  border: 1px solid var(--plezix-toolbar-field-border);
+  box-shadow: 0 1px 2px color-mix(in srgb, #000000 8%, transparent);
+}
+
+/* A small warm accent keeps the Firefox identity without making the chrome loud. */
+.tabbrowser-tab[selected] .tab-background::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 1px;
+  inset-inline-start: 50%;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--plezix-firefox-accent);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+#nav-bar {
+  min-height: 46px;
+  padding-block: 3px;
+  border-top: 0;
+  border-bottom: 1px solid var(--plezix-chrome-separator);
+}
+
+/* A single rounded address/search field, with a restrained focus treatment. */
+#urlbar {
+  --urlbar-background-border-radius: 999px;
+  --urlbar-background-color: var(--plezix-toolbar-field);
+  --urlbar-background-color-focus: var(--plezix-toolbar-field);
+  --urlbar-background-border: 1px solid var(--plezix-toolbar-field-border);
+  --urlbar-background-border-focused: 1px solid var(--color-accent-primary);
+}
+
+/* Softer interaction targets across the top chrome. */
+#nav-bar .toolbarbutton-1,
+#TabsToolbar .toolbarbutton-1,
+#PersonalToolbar .toolbarbutton-1 {
+  --toolbarbutton-border-radius: 9px;
+}
+
+#PersonalToolbar {
+  border-bottom: 1px solid var(--plezix-chrome-separator);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-background {
+    transition: none;
+  }
+}
