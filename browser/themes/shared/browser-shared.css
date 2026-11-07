@@ -1842,7 +1842,7 @@ popupnotificationcontent {
 }
 
 #urlbar {
-  --urlbar-background-border-radius: var(--border-radius-circle);
+  --urlbar-background-border-radius: var(--urlbarview-border-radius);
   --urlbar-border-radius: var(--border-radius-circle);
   --urlbar-background-color: var(--plezix-safari-field);
   --urlbar-background-color-focus: var(--plezix-safari-field);
