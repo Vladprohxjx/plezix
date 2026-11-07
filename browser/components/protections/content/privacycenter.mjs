@@ -26,7 +26,12 @@ const getString = (name, fallback = "") => {
   }
 };
 
-const setState = (id, enabled, enabledText = "Включена", disabledText = "Выключена") => {
+const setState = (
+  id,
+  enabled,
+  enabledText = "Включена",
+  disabledText = "Выключена"
+) => {
   const node = document.getElementById(id);
   if (!node) {
     return false;
@@ -45,7 +50,9 @@ function refreshPrivacyStatus() {
   const fingerprinting =
     getBool("privacy.trackingprotection.fingerprinting.enabled") ||
     getBool("privacy.fingerprintingProtection");
-  const cryptomining = getBool("privacy.trackingprotection.cryptomining.enabled");
+  const cryptomining = getBool(
+    "privacy.trackingprotection.cryptomining.enabled"
+  );
   const globalPrivacyControl = getBool("privacy.globalprivacycontrol.enabled");
   const category = getString("browser.contentblocking.category", "custom");
 
@@ -56,7 +63,7 @@ function refreshPrivacyStatus() {
     cryptomining,
   ];
   const enabledCount = protectionSignals.filter(Boolean).length;
-  const protectionEnabled = enabledCount > 0;
+  const protectionEnabled = category === "strict" || enabledCount > 0;
 
   const overall = document.getElementById("overall-status");
   const overallText = document.getElementById("overall-status-text");
