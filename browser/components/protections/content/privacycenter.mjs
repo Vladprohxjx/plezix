@@ -20,7 +20,7 @@ const getInt = (name, fallback = 0) => {
 
 const getString = (name, fallback = "") => {
   try {
-    return RPMGetStringPref(name, fallback);
+    return RPMGetStringPref(name) || fallback;
   } catch {
     return fallback;
   }
@@ -53,8 +53,13 @@ function refreshPrivacyStatus() {
   const cryptomining = getBool(
     "privacy.trackingprotection.cryptomining.enabled"
   );
-  const globalPrivacyControl = getBool("privacy.globalprivacycontrol.enabled");
-  const category = getString("browser.contentblocking.category", "custom");
+  const globalPrivacyControl = getBool(
+    "privacy.globalprivacycontrol.enabled"
+  );
+  const category = getString(
+    "browser.contentblocking.category",
+    "custom"
+  );
 
   const protectionSignals = [
     trackingProtection,
@@ -82,10 +87,20 @@ function refreshPrivacyStatus() {
         ? "Выбран стандартный режим встроенной защиты Firefox."
         : "Режим защиты настроен индивидуально или политикой браузера.";
 
-  setState("cookie-status", cookieIsolation, "Сторонние cookie разделены", "Разделение не включено");
+  setState(
+    "cookie-status",
+    cookieIsolation,
+    "Сторонние cookie разделены",
+    "Разделение не включено"
+  );
   setState("fingerprint-status", fingerprinting);
   setState("cryptominer-status", cryptomining);
-  setState("gpc-status", globalPrivacyControl, "Сигнал отправляется", "Сигнал выключен");
+  setState(
+    "gpc-status",
+    globalPrivacyControl,
+    "Сигнал включён",
+    "Сигнал выключен"
+  );
 
   const trrMode = getInt("network.trr.mode", 0);
   const dohNode = document.getElementById("doh-status");
@@ -117,7 +132,11 @@ function refreshPrivacyStatus() {
   }
 
   document.getElementById("privacy-center").dataset.category = category;
-  document.getElementById("privacy-center").dataset.enabledProtections = String(enabledCount);
+  document.getElementById(
+    "privacy-center"
+  ).dataset.enabledProtections = String(enabledCount);
 }
 
-document.addEventListener("DOMContentLoaded", refreshPrivacyStatus, { once: true });
+document.addEventListener("DOMContentLoaded", refreshPrivacyStatus, {
+  once: true,
+});
