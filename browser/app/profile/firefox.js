@@ -3205,7 +3205,7 @@ pref("browser.toolbars.keyboard_navigation", true);
 // "newtab": Show on the New Tab Page
 // "always": Always show
 // "never": Never show
-pref("browser.toolbars.bookmarks.visibility", "newtab");
+pref("browser.toolbars.bookmarks.visibility", "always");
 
 // Visibility of the "Show Other Bookmarks" menuitem in the
 // bookmarks toolbar contextmenu.

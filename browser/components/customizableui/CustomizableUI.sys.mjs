@@ -62,7 +62,7 @@ const kSubviewEvents = ["ViewShowing", "ViewHiding"];
  * The current version. We can use this to auto-add new default widgets as necessary.
  * (would be const but isn't because of testing purposes)
  */
-var kVersion = 28;
+var kVersion = 29;
 
 /**
  * Buttons removed from built-ins by version they were removed. kVersion must be
@@ -362,13 +362,10 @@ var CustomizableUIInternal = {
       lazy.sidebarRevampEnabled ? "sidebar-button" : null,
       "back-button",
       "forward-button",
-      "stop-reload-button",
-      Services.policies.isAllowed("removeHomeButtonByDefault")
-        ? null
-        : "home-button",
       "spring",
       "vertical-spacer",
       "urlbar-container",
+      "stop-reload-button",
       "spring",
       "downloads-button",
       AppConstants.MOZ_DEV_EDITION ? "developer-button" : null,
@@ -1045,6 +1042,28 @@ var CustomizableUIInternal = {
       if (horizontalSnapshot.length) {
         restoreFlexibleSpace(horizontalSnapshot);
         CustomizableUIInternal.saveHorizontalTabStripState(horizontalSnapshot);
+      }
+    }
+
+    // Safari-style browser chrome: place reload after Smart Search and remove
+    // the default Home button unless the user has actively used it.
+    if (currentVersion < 29) {
+      const navbarPlacements = gSavedState.placements[CustomizableUI.AREA_NAVBAR];
+      if (Array.isArray(navbarPlacements)) {
+        const reloadIndex = navbarPlacements.indexOf("stop-reload-button");
+        const urlbarIndex = navbarPlacements.indexOf("urlbar-container");
+        if (reloadIndex != -1 && urlbarIndex != -1 && reloadIndex < urlbarIndex) {
+          navbarPlacements.splice(reloadIndex, 1);
+          navbarPlacements.splice(navbarPlacements.indexOf("urlbar-container") + 1, 0, "stop-reload-button");
+        }
+
+        if (!Services.prefs.getBoolPref(kPrefHomeButtonUsed, false)) {
+          const homeIndex = navbarPlacements.indexOf("home-button");
+          const defaultHomeIndex = navbarPlacements.includes("sidebar-button") ? 4 : 3;
+          if (homeIndex == defaultHomeIndex) {
+            navbarPlacements.splice(homeIndex, 1);
+          }
+        }
       }
     }
   },

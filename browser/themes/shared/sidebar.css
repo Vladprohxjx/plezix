@@ -872,3 +872,46 @@ menuseparator + #sidebar-extensions-separator {
     display: none;
   }
 }
+
+/* Plezix Safari-style browser sidebar. */
+#sidebar-container,
+#sidebar-box {
+  background-color: var(--plezix-safari-sidebar);
+  color: var(--sidebar-text-color);
+}
+
+#sidebar-box {
+  border: 0;
+  border-inline-end: var(--border-width) solid var(--plezix-safari-divider);
+  border-radius: 0;
+  box-shadow: none;
+  padding-block-end: 0;
+}
+
+#sidebar {
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  background-color: var(--plezix-safari-sidebar);
+}
+
+#sidebar-header {
+  border: 0;
+  padding: var(--space-large) var(--space-medium);
+  font-size: 1.15em;
+}
+
+#sidebar-switcher-target,
+#sidebar-close {
+  border-radius: var(--border-radius-medium);
+}
+
+#sidebar-switcher-target:hover,
+#sidebar-close:hover {
+  background-color: var(--plezix-safari-hover);
+}
+
+.sidebar-splitter {
+  background-color: transparent;
+  border: 0;
+}
