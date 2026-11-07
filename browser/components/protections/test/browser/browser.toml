@@ -15,6 +15,8 @@ support-files = [
 
 ["browser_protections_report_ui.js"]
 
+["browser_privacycenter.js"]
+
 ["browser_protections_telemetry.js"]
 skip-if = [
   "verify-standalone",
