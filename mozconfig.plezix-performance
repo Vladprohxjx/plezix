@@ -7,3 +7,7 @@ ac_add_options --enable-project=browser
 ac_add_options --enable-release
 ac_add_options MOZ_PGO=1
 ac_add_options --enable-lto
+
+# Optimize Rust components (including Stylo and WebRender) for runtime speed.
+# This increases the compile time compared with the quicker local default.
+ac_add_options RUSTC_OPT_LEVEL=2
