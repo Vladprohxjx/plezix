@@ -21,91 +21,6 @@
 #include titlebar-items.inc.xhtml
   </toolbar>
 
-  <toolbar id="TabsToolbar"
-           class="browser-toolbar browser-titlebar"
-           fullscreentoolbar="true"
-           customizable="true"
-           customizationtarget="TabsToolbar-customization-target"
-           mode="icons"
-           data-l10n-id="tabs-toolbar"
-           context="toolbar-context-menu"
-           flex="1">
-
-    <hbox class="titlebar-spacer" type="pre-tabs"/>
-
-    <hbox flex="1" align="end" class="toolbar-items">
-      <toolbartabstop/>
-      <hbox id="TabsToolbar-customization-target" flex="1">
-        <tabs id="tabbrowser-tabs"
-              is="tabbrowser-tabs"
-              aria-multiselectable="true"
-              setfocus="false"
-              tooltip="tabbrowser-tab-tooltip"
-              orient="horizontal"
-              stopwatchid="tabClick">
-# If the name (tabbrowser-arrowscrollbox) or structure of this changes
-# significantly, there is an optimization in
-# DisplayPortUtils::MaybeCreateDisplayPortInFirstScrollFrameEncountered based on
-# the current structure that we may want to revisit. It relies on the
-# arrowscrollbox's own scroll container being a direct child frame, so that it
-# can be given a displayport without walking the tabs inside it.
-          <div id="pinned-drop-indicator">
-            <html:img id="pinned-drop-indicator-icon" src="chrome://browser/skin/pin.svg" role="presentation" loading="lazy"/>
-            <span id="pinned-drop-indicator-text" data-l10n-id="pinned-tabs-drop-indicator"></span>
-          </div>
-          <html:sidebar-pins-promo id="drag-to-pin-promo-card"></html:sidebar-pins-promo>
-          <arrowscrollbox id="pinned-tabs-container" orient="horizontal" clicktoscroll=""></arrowscrollbox>
-          <splitter orient="vertical" id="vertical-pinned-tabs-splitter" resizebefore="sibling" resizeafter="none" hidden="true"/>
-          <hbox class="tab-drop-indicator" hidden="true"/>
-          <arrowscrollbox id="tabbrowser-arrowscrollbox" orient="horizontal" flex="1" clicktoscroll="" scrolledtostart="" scrolledtoend="">
-            <tab is="tabbrowser-tab" class="tabbrowser-tab" selected="" visuallyselected="" fadein=""/>
-            <hbox id="tabbrowser-arrowscrollbox-periphery">
-              <toolbartabstop/>
-              <toolbarbutton id="tabs-newtab-button"
-                             class="toolbarbutton-1"
-                             command="cmd_newNavigatorTab"
-                             tooltip="dynamic-shortcut-tooltip"
-                             data-l10n-id="tabs-toolbar-new-tab"/>
-              <spacer class="closing-tabs-spacer" style="width: 0;"/>
-            </hbox>
-          </arrowscrollbox>
-          <toolbarbutton id="vertical-tabs-newtab-button"
-                              class="toolbarbutton-1"
-                              command="cmd_newNavigatorTab"
-                              tooltip="dynamic-shortcut-tooltip"
-                              data-l10n-id="tabs-toolbar-new-tab"/>
-          <html:span id="tabbrowser-tab-a11y-desc" hidden="true"/>
-        </tabs>
-
-        <toolbarbutton id="new-tab-button"
-                       class="toolbarbutton-1 chromeclass-toolbar-additional"
-                       data-l10n-id="tabs-toolbar-new-tab"
-                       command="cmd_newNavigatorTab"
-                       tooltip="dynamic-shortcut-tooltip"
-                       cui-areatype="toolbar"
-                       removable="true"/>
-
-        <toolbarspring cui-areatype="toolbar"
-                       class="chromeclass-toolbar-additional"/>
-
-        <toolbarbutton id="alltabs-button"
-                       class="toolbarbutton-1 chromeclass-toolbar-additional tabs-alltabs-button"
-                       delegatesanchor="true"
-                       badged="true"
-                       data-l10n-id="tabs-toolbar-list-all-tabs-2"
-                       closemenu="none"
-                       removable="true"/>
-      </hbox>
-    </hbox>
-
-#include private-browsing-indicator.inc.xhtml
-
-    <toolbarbutton class="content-analysis-indicator toolbarbutton-1 content-analysis-indicator-icon"/>
-
-#include titlebar-items.inc.xhtml
-
-  </toolbar>
-
   <toolbar id="nav-bar"
            class="browser-toolbar"
            data-l10n-id="navbar-accessible"
@@ -541,6 +456,91 @@
 #include private-browsing-indicator.inc.xhtml
     <toolbarbutton class="content-analysis-indicator toolbarbutton-1 content-analysis-indicator-icon"/>
 #include titlebar-items.inc.xhtml
+  </toolbar>
+
+  <toolbar id="TabsToolbar"
+           class="browser-toolbar browser-titlebar"
+           fullscreentoolbar="true"
+           customizable="true"
+           customizationtarget="TabsToolbar-customization-target"
+           mode="icons"
+           data-l10n-id="tabs-toolbar"
+           context="toolbar-context-menu"
+           flex="1">
+
+    <hbox class="titlebar-spacer" type="pre-tabs"/>
+
+    <hbox flex="1" align="end" class="toolbar-items">
+      <toolbartabstop/>
+      <hbox id="TabsToolbar-customization-target" flex="1">
+        <tabs id="tabbrowser-tabs"
+              is="tabbrowser-tabs"
+              aria-multiselectable="true"
+              setfocus="false"
+              tooltip="tabbrowser-tab-tooltip"
+              orient="horizontal"
+              stopwatchid="tabClick">
+# If the name (tabbrowser-arrowscrollbox) or structure of this changes
+# significantly, there is an optimization in
+# DisplayPortUtils::MaybeCreateDisplayPortInFirstScrollFrameEncountered based on
+# the current structure that we may want to revisit. It relies on the
+# arrowscrollbox's own scroll container being a direct child frame, so that it
+# can be given a displayport without walking the tabs inside it.
+          <div id="pinned-drop-indicator">
+            <html:img id="pinned-drop-indicator-icon" src="chrome://browser/skin/pin.svg" role="presentation" loading="lazy"/>
+            <span id="pinned-drop-indicator-text" data-l10n-id="pinned-tabs-drop-indicator"></span>
+          </div>
+          <html:sidebar-pins-promo id="drag-to-pin-promo-card"></html:sidebar-pins-promo>
+          <arrowscrollbox id="pinned-tabs-container" orient="horizontal" clicktoscroll=""></arrowscrollbox>
+          <splitter orient="vertical" id="vertical-pinned-tabs-splitter" resizebefore="sibling" resizeafter="none" hidden="true"/>
+          <hbox class="tab-drop-indicator" hidden="true"/>
+          <arrowscrollbox id="tabbrowser-arrowscrollbox" orient="horizontal" flex="1" clicktoscroll="" scrolledtostart="" scrolledtoend="">
+            <tab is="tabbrowser-tab" class="tabbrowser-tab" selected="" visuallyselected="" fadein=""/>
+            <hbox id="tabbrowser-arrowscrollbox-periphery">
+              <toolbartabstop/>
+              <toolbarbutton id="tabs-newtab-button"
+                             class="toolbarbutton-1"
+                             command="cmd_newNavigatorTab"
+                             tooltip="dynamic-shortcut-tooltip"
+                             data-l10n-id="tabs-toolbar-new-tab"/>
+              <spacer class="closing-tabs-spacer" style="width: 0;"/>
+            </hbox>
+          </arrowscrollbox>
+          <toolbarbutton id="vertical-tabs-newtab-button"
+                              class="toolbarbutton-1"
+                              command="cmd_newNavigatorTab"
+                              tooltip="dynamic-shortcut-tooltip"
+                              data-l10n-id="tabs-toolbar-new-tab"/>
+          <html:span id="tabbrowser-tab-a11y-desc" hidden="true"/>
+        </tabs>
+
+        <toolbarbutton id="new-tab-button"
+                       class="toolbarbutton-1 chromeclass-toolbar-additional"
+                       data-l10n-id="tabs-toolbar-new-tab"
+                       command="cmd_newNavigatorTab"
+                       tooltip="dynamic-shortcut-tooltip"
+                       cui-areatype="toolbar"
+                       removable="true"/>
+
+        <toolbarspring cui-areatype="toolbar"
+                       class="chromeclass-toolbar-additional"/>
+
+        <toolbarbutton id="alltabs-button"
+                       class="toolbarbutton-1 chromeclass-toolbar-additional tabs-alltabs-button"
+                       delegatesanchor="true"
+                       badged="true"
+                       data-l10n-id="tabs-toolbar-list-all-tabs-2"
+                       closemenu="none"
+                       removable="true"/>
+      </hbox>
+    </hbox>
+
+#include private-browsing-indicator.inc.xhtml
+
+    <toolbarbutton class="content-analysis-indicator toolbarbutton-1 content-analysis-indicator-icon"/>
+
+#include titlebar-items.inc.xhtml
+
   </toolbar>
 
   <toolbar id="PersonalToolbar"
