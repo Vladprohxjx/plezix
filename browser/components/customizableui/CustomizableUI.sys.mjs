@@ -62,7 +62,7 @@ const kSubviewEvents = ["ViewShowing", "ViewHiding"];
  * The current version. We can use this to auto-add new default widgets as necessary.
  * (would be const but isn't because of testing purposes)
  */
-var kVersion = 32;
+var kVersion = 33;
 
 /**
  * Buttons removed from built-ins by version they were removed. kVersion must be
@@ -362,10 +362,10 @@ var CustomizableUIInternal = {
       lazy.sidebarRevampEnabled ? "sidebar-button" : null,
       "back-button",
       "forward-button",
+      "stop-reload-button",
       "spring",
       "vertical-spacer",
       "urlbar-container",
-      "stop-reload-button",
       "downloads-button",
       AppConstants.MOZ_DEV_EDITION ? "developer-button" : null,
       lazy.ippEnabled ? "ipprotection-button" : null,
@@ -1131,6 +1131,72 @@ var CustomizableUIInternal = {
 
           const updatedUrlbarIndex = navbarPlacements.indexOf("urlbar-container");
           navbarPlacements.splice(updatedUrlbarIndex, 0, leadingSpring);
+          navbarPlacements.push(trailingSpring);
+        }
+      }
+    }
+
+    // Restore Reload beside Back and Forward, then keep extensions next to
+    // Smart Search. Two balanced flexible spaces center the complete group.
+    if (currentVersion < 33) {
+      const navbarPlacements = gSavedState.placements[CustomizableUI.AREA_NAVBAR];
+      if (Array.isArray(navbarPlacements)) {
+        const reloadIndex = navbarPlacements.indexOf("stop-reload-button");
+        const backIndex = navbarPlacements.indexOf("back-button");
+        const forwardIndex = navbarPlacements.indexOf("forward-button");
+        if (
+          reloadIndex != -1 &&
+          forwardIndex != -1 &&
+          reloadIndex != forwardIndex + 1
+        ) {
+          navbarPlacements.splice(reloadIndex, 1);
+          navbarPlacements.splice(
+            navbarPlacements.indexOf("forward-button") + 1,
+            0,
+            "stop-reload-button"
+          );
+        }
+
+        const extensionWidgets = navbarPlacements.filter(
+          widgetId =>
+            widgetId == "unified-extensions-button" ||
+            this.isWebExtensionWidget(widgetId)
+        );
+        for (const widgetId of extensionWidgets) {
+          const widgetIndex = navbarPlacements.indexOf(widgetId);
+          if (widgetIndex != -1) {
+            navbarPlacements.splice(widgetIndex, 1);
+          }
+        }
+
+        const urlbarIndex = navbarPlacements.indexOf("urlbar-container");
+        if (urlbarIndex != -1 && extensionWidgets.length) {
+          navbarPlacements.splice(
+            urlbarIndex + 1,
+            0,
+            ...extensionWidgets
+          );
+        }
+
+        const springIds = navbarPlacements.filter(widgetId =>
+          this.matchingSpecials(widgetId, "spring")
+        );
+        const leadingSpring =
+          springIds[0] || this.ensureSpecialWidgetId("spring");
+        const trailingSpring =
+          springIds[1] || this.ensureSpecialWidgetId("spring");
+        for (let index = navbarPlacements.length - 1; index >= 0; index--) {
+          if (this.matchingSpecials(navbarPlacements[index], "spring")) {
+            navbarPlacements.splice(index, 1);
+          }
+        }
+
+        const centeredGroupStart = navbarPlacements.indexOf("urlbar-container");
+        const updatedReloadIndex = navbarPlacements.indexOf("stop-reload-button");
+        const springPosition =
+          updatedReloadIndex != -1 ? updatedReloadIndex + 1 : centeredGroupStart;
+        if (springPosition != -1) {
+          navbarPlacements.splice(springPosition, 0, leadingSpring);
           navbarPlacements.push(trailingSpring);
         }
       }
