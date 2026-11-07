@@ -1836,9 +1836,11 @@ popupnotificationcontent {
 /* The Smart Search field is centered and gets the widest visual emphasis. */
 #urlbar-container,
 #wrapper-urlbar-container {
-  flex: 1 1 var(--urlbar-container-min-width);
+  /* Let Smart Search use most of the remaining toolbar width while the
+     flexible spaces on either side preserve the centered toolbar cluster. */
+  flex: 8 1 var(--urlbar-container-min-width);
   min-width: min(var(--urlbar-container-min-width), 34vw);
-  max-width: min(48vw, calc(var(--urlbar-container-min-width) * 2.25));
+  max-width: none;
   margin-inline: var(--space-small);
 }
 
