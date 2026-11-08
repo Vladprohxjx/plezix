@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* global RPMGetBoolPref, RPMGetIntPref, RPMGetStringPref, RPMSendAsyncMessage, RPMSendQuery */
+/* global RPMGetBoolPref, RPMGetIntPref, RPMGetStringPref, RPMSendQuery */
 
 const numberFormat = new Intl.NumberFormat();
 
@@ -195,11 +195,6 @@ async function updateProtectionMetrics() {
 document.addEventListener(
   "DOMContentLoaded",
   () => {
-    document.querySelectorAll("[data-rpm-message]").forEach(button => {
-      button.addEventListener("click", () => {
-        RPMSendAsyncMessage(button.dataset.rpmMessage);
-      });
-    });
     updateProtectionStatus();
     updateProtectionMetrics();
   },
