@@ -1876,6 +1876,25 @@ popupnotificationcontent {
   border-radius: var(--border-radius-medium);
 }
 
+/* Place the account control beside the native window controls. */
+#fxa-toolbar-menu-button.plezix-titlebar-account {
+  order: 999;
+  flex: none;
+  margin-inline: var(--space-xsmall);
+}
+
+@media (-moz-platform: macos) {
+  #fxa-toolbar-menu-button.plezix-titlebar-account {
+    order: -1;
+  }
+}
+
+@media (-moz-gtk-csd-reversed-placement) {
+  #fxa-toolbar-menu-button.plezix-titlebar-account {
+    order: -1;
+  }
+}
+
 /* Keep Windows/macOS/Linux window controls on the upper Safari-style toolbar,
    not beside the tabs. On macOS their existing order places them at the left. */
 #navigator-toolbox:not([tabs-hidden]) > #nav-bar > .titlebar-buttonbox-container {
