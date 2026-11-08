@@ -1807,6 +1807,7 @@ popupnotificationcontent {
   --plezix-safari-field-focus: var(--plezix-safari-field);
   --plezix-safari-field-border: var(--plezix-safari-divider);
   --plezix-safari-tab-selected: var(--plezix-safari-field);
+  --plezix-safari-toolbar-divider: var(--plezix-safari-divider);
   --plezix-safari-divider: light-dark(rgb(0 0 0 / 9%), rgb(255 255 255 / 10%));
   --plezix-safari-hover: light-dark(rgb(0 0 0 / 6%), rgb(255 255 255 / 9%));
   --plezix-safari-pressed: light-dark(rgb(0 0 0 / 10%), rgb(255 255 255 / 14%));
@@ -1820,12 +1821,25 @@ popupnotificationcontent {
   --plezix-safari-toolbar: var(--toolbar-background-color);
   --plezix-safari-sidebar: var(--sidebar-background-color);
   --plezix-safari-field: var(--toolbar-field-background-color);
-  --plezix-safari-field-focus: var(--toolbar-field-background-color-focus, var(--toolbar-field-background-color));
-  --plezix-safari-field-border: var(--toolbar-field-border-color, var(--chrome-content-separator-color));
+  --plezix-safari-field-focus: var(
+    --toolbar-field-background-color-focus,
+    var(--toolbar-field-background-color)
+  );
+  --plezix-safari-field-border: var(
+    --toolbar-field-border-color,
+    var(--chrome-content-separator-color)
+  );
   --plezix-safari-tab-selected: var(--tab-background-color-selected);
   --plezix-safari-divider: var(--chrome-content-separator-color);
-  --plezix-safari-hover: var(--toolbarbutton-background-color-hover, color-mix(in srgb, currentColor 15%, transparent));
-  --plezix-safari-pressed: var(--toolbarbutton-background-color-active, color-mix(in srgb, currentColor 22%, transparent));
+  --plezix-safari-toolbar-divider: var(--tabs-navbar-separator-color);
+  --plezix-safari-hover: var(
+    --toolbarbutton-background-color-hover,
+    color-mix(in srgb, currentColor 15%, transparent)
+  );
+  --plezix-safari-pressed: var(
+    --toolbarbutton-background-color-active,
+    color-mix(in srgb, currentColor 22%, transparent)
+  );
 }
 
 /* Safari's order: navigation toolbar, tabs, then Favorites (when enabled). */
@@ -1838,7 +1852,9 @@ popupnotificationcontent {
   padding-block: var(--space-xxsmall);
   padding-inline: var(--space-small);
   border: 0;
-  border-bottom: var(--border-width) solid var(--plezix-safari-divider);
+  border-bottom:
+    var(--border-width) var(--tabs-navbar-separator-style, solid)
+    var(--plezix-safari-toolbar-divider);
   background-color: var(--plezix-safari-toolbar);
   color: var(--toolbar-text-color);
 }
