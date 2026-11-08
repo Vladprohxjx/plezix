@@ -84,6 +84,37 @@ add_task(async function test_fetchPrivacyMetrics_returns_stats() {
   await TrackingDBService.clearAll();
 });
 
+add_task(async function test_fetchPrivacyMetrics_dashboard_actor() {
+  await TrackingDBService.clearAll();
+
+  const tab = await BrowserTestUtils.openNewForegroundTab({
+    url: "about:privacy",
+    gBrowser,
+  });
+
+  const result = await SpecialPowers.spawn(
+    tab.linkedBrowser,
+    [],
+    async () => {
+      return {
+        hasQuery: typeof content.RPMSendQuery == "function",
+        hasBoolPref: typeof content.RPMGetBoolPref == "function",
+        hasIntPref: typeof content.RPMGetIntPref == "function",
+        hasStringPref: typeof content.RPMGetStringPref == "function",
+        stats: await content.RPMSendQuery("FetchPrivacyMetrics"),
+      };
+    }
+  );
+
+  Assert.ok(result.hasQuery, "Dashboard can query the protections actor");
+  Assert.ok(result.hasBoolPref, "Dashboard can read allowed boolean prefs");
+  Assert.ok(result.hasIntPref, "Dashboard can read allowed integer prefs");
+  Assert.ok(result.hasStringPref, "Dashboard can read allowed string prefs");
+  Assert.equal(result.stats.total, 0, "Dashboard receives empty metrics");
+
+  await BrowserTestUtils.removeTab(tab);
+});
+
 add_task(async function test_fetchPrivacyMetrics_returns_isPrivate_in_pbm() {
   info("Test that FetchPrivacyMetrics returns isPrivate in private browsing");
 

@@ -151,8 +151,42 @@ body {
 }
 
 .text-link:hover,
-.page-footer a:hover {
+.page-footer .footer-link:hover {
   text-decoration: underline;
+}
+
+button.text-link,
+button.pill-button,
+button.tool-card,
+button.footer-link {
+  appearance: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button.text-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: start;
+}
+
+button.pill-button {
+  background: transparent;
+}
+
+button.tool-card {
+  width: 100%;
+  text-align: start;
+}
+
+button.footer-link {
+  padding: 0;
+  border: 0;
+  color: var(--plezix-privacy-accent);
+  background: transparent;
+  font-size: inherit;
+  text-align: start;
 }
 
 .mode-card,
@@ -445,7 +479,7 @@ body {
   font-size: 10px;
 }
 
-.page-footer a {
+.page-footer .footer-link {
   color: var(--plezix-privacy-accent);
   text-decoration: none;
 }

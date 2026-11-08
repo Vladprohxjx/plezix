@@ -174,7 +174,11 @@ let JSWINDOWACTORS = {
       },
     },
 
-    matches: ["about:protections", "about:protections?*"],
+    matches: [
+      "about:protections",
+      "about:protections?*",
+      "about:privacy",
+    ],
     remoteTypes: ["privilegedabout"],
   },
 

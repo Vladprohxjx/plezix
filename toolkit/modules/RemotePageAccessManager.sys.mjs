@@ -230,6 +230,26 @@ export let RemotePageAccessManager = {
       RPMGetBoolPref: ["browser.profiles.profile-name.updated"],
       RPMGetFormatURLPref: ["app.support.baseURL"],
     },
+    "about:privacy": {
+      RPMSendAsyncMessage: [
+        "OpenContentBlockingPreferences",
+        "OpenAddonsManager",
+        "OpenProtectionsReport",
+      ],
+      RPMSendQuery: ["FetchPrivacyMetrics"],
+      RPMGetBoolPref: [
+        "privacy.trackingprotection.enabled",
+        "privacy.trackingprotection.pbmode.enabled",
+        "privacy.trackingprotection.fingerprinting.enabled",
+        "privacy.fingerprintingProtection",
+        "privacy.fingerprintingProtection.pbmode",
+        "privacy.trackingprotection.cryptomining.enabled",
+        "privacy.trackingprotection.socialtracking.enabled",
+        "privacy.globalprivacycontrol.enabled",
+      ],
+      RPMGetIntPref: ["network.cookie.cookieBehavior"],
+      RPMGetStringPref: ["browser.contentblocking.category"],
+    },
     "about:protections": {
       RPMSendAsyncMessage: [
         "OpenContentBlockingPreferences",
