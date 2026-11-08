@@ -1801,16 +1801,36 @@ popupnotificationcontent {
 
 :root {
   --plezix-safari-toolbar: light-dark(#f4f5f7, #292a2e);
+  --plezix-safari-frame: var(--plezix-safari-toolbar);
   --plezix-safari-sidebar: light-dark(#f1f2f4, #25262a);
   --plezix-safari-field: light-dark(#ffffff, #3a3b40);
+  --plezix-safari-field-focus: var(--plezix-safari-field);
+  --plezix-safari-field-border: var(--plezix-safari-divider);
+  --plezix-safari-tab-selected: var(--plezix-safari-field);
   --plezix-safari-divider: light-dark(rgb(0 0 0 / 9%), rgb(255 255 255 / 10%));
   --plezix-safari-hover: light-dark(rgb(0 0 0 / 6%), rgb(255 255 255 / 9%));
   --plezix-safari-pressed: light-dark(rgb(0 0 0 / 10%), rgb(255 255 255 / 14%));
 }
 
+/* Firefox exposes add-on theme colors as live variables on the root. Keep
+ * Plezix's own palette for built-in themes, and use the mapped theme colors
+ * whenever a lightweight/user theme is active. */
+:root[lwtheme] {
+  --plezix-safari-frame: var(--lwt-accent-color);
+  --plezix-safari-toolbar: var(--toolbar-background-color);
+  --plezix-safari-sidebar: var(--sidebar-background-color);
+  --plezix-safari-field: var(--toolbar-field-background-color);
+  --plezix-safari-field-focus: var(--toolbar-field-background-color-focus, var(--toolbar-field-background-color));
+  --plezix-safari-field-border: var(--toolbar-field-border-color, var(--chrome-content-separator-color));
+  --plezix-safari-tab-selected: var(--tab-background-color-selected);
+  --plezix-safari-divider: var(--chrome-content-separator-color);
+  --plezix-safari-hover: var(--toolbarbutton-background-color-hover, color-mix(in srgb, currentColor 15%, transparent));
+  --plezix-safari-pressed: var(--toolbarbutton-background-color-active, color-mix(in srgb, currentColor 22%, transparent));
+}
+
 /* Safari's order: navigation toolbar, tabs, then Favorites (when enabled). */
 #navigator-toolbox {
-  background-color: var(--plezix-safari-toolbar);
+  background-color: var(--plezix-safari-frame);
 }
 
 #nav-bar {
@@ -1820,7 +1840,7 @@ popupnotificationcontent {
   border: 0;
   border-bottom: var(--border-width) solid var(--plezix-safari-divider);
   background-color: var(--plezix-safari-toolbar);
-  color: var(--toolbox-text-color);
+  color: var(--toolbar-text-color);
 }
 
 #nav-bar-customization-target {
@@ -1848,8 +1868,8 @@ popupnotificationcontent {
   --urlbar-background-border-radius: var(--urlbarview-border-radius);
   --urlbar-border-radius: var(--border-radius-circle);
   --urlbar-background-color: var(--plezix-safari-field);
-  --urlbar-background-color-focus: var(--plezix-safari-field);
-  --urlbar-background-border: var(--border-width) solid var(--plezix-safari-divider);
+  --urlbar-background-color-focus: var(--plezix-safari-field-focus);
+  --urlbar-background-border: var(--border-width) solid var(--plezix-safari-field-border);
   --urlbar-background-border-focused: var(--border-width) solid var(--toolbar-field-border-color-focus);
   --urlbar-background-border-open: var(--border-width) solid var(--panel-border-color);
 }
@@ -1912,6 +1932,7 @@ popupnotificationcontent {
   padding-block: 0;
   padding-inline: var(--space-medium);
   background-color: var(--plezix-safari-toolbar);
+  color: var(--toolbar-text-color);
   border-bottom: var(--border-width) solid var(--plezix-safari-divider);
 }
 
@@ -1946,8 +1967,8 @@ popupnotificationcontent {
 }
 
 #tabbrowser-tabs[orient="horizontal"] .tabbrowser-tab[selected] .tab-background {
-  background-color: var(--plezix-safari-field);
-  outline: var(--border-width) solid var(--plezix-safari-divider);
+  background-color: var(--plezix-safari-tab-selected);
+  outline: var(--border-width) solid var(--tab-border-color-selected);
   outline-offset: calc(-1 * var(--border-width));
   box-shadow: 0 1px 2px color-mix(in srgb, #000000 7%, transparent);
 }
@@ -1963,6 +1984,7 @@ popupnotificationcontent {
   padding-block: var(--space-xxsmall);
   padding-inline: var(--space-medium);
   background-color: var(--plezix-safari-toolbar);
+  color: var(--toolbar-text-color);
   border-bottom: var(--border-width) solid var(--plezix-safari-divider);
 }
 
