@@ -520,3 +520,7 @@ body {
     transition: none;
   }
 }
+
+.metrics-breakdown[hidden] {
+  display: none;
+}
