@@ -62,7 +62,7 @@ const kSubviewEvents = ["ViewShowing", "ViewHiding"];
  * The current version. We can use this to auto-add new default widgets as necessary.
  * (would be const but isn't because of testing purposes)
  */
-var kVersion = 33;
+var kVersion = 34;
 
 /**
  * Buttons removed from built-ins by version they were removed. kVersion must be
@@ -369,7 +369,6 @@ var CustomizableUIInternal = {
       "downloads-button",
       AppConstants.MOZ_DEV_EDITION ? "developer-button" : null,
       lazy.ippEnabled ? "ipprotection-button" : null,
-      "fxa-toolbar-menu-button",
       lazy.resetPBMToolbarButtonEnabled ? "reset-pbm-toolbar-button" : null,
       lazy.fireButtonEnabled ? "fire-button" : null,
       "spring",
@@ -1190,6 +1189,18 @@ var CustomizableUIInternal = {
         if (springPosition != -1) {
           navbarPlacements.splice(springPosition, 0, leadingSpring);
           navbarPlacements.push(trailingSpring);
+        }
+      }
+    }
+
+    // The account control now lives in the title bar beside the native
+    // minimize, maximize, and close buttons, not in the customizable navbar.
+    if (currentVersion < 34) {
+      const navbarPlacements = gSavedState.placements[CustomizableUI.AREA_NAVBAR];
+      if (Array.isArray(navbarPlacements)) {
+        const accountIndex = navbarPlacements.indexOf("fxa-toolbar-menu-button");
+        if (accountIndex != -1) {
+          navbarPlacements.splice(accountIndex, 1);
         }
       }
     }
