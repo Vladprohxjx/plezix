@@ -319,10 +319,11 @@ export class AboutProtectionsParent extends JSWindowActorParent {
           origin: "about-protections",
         });
         break;
-      case "OpenPrivacySettings":
-        win.openPreferences("privacy-trackingprotection", {
-          origin: "about-privacy",
-        });
+      case "OpenAddonsManager":
+        win.openTrustedLinkIn("about:addons", "tab");
+        break;
+      case "OpenProtectionsReport":
+        win.openTrustedLinkIn("about:protections", "tab");
         break;
       case "OpenSyncPreferences":
         win.openTrustedLinkIn("about:preferences#sync", "tab");
