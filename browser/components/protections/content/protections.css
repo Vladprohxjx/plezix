@@ -1129,3 +1129,50 @@ label[for="tab-cryptominer"]:hover ~ #highlight-hover {
 .vpn-card:not(.subscribed) #check-icon {
   display: none;
 }
+
+
+.plezix-dashboard-promo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 765px;
+  margin-block: 24px;
+  padding: 18px 20px;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  border-radius: 16px;
+  background: var(--in-content-box-background);
+}
+
+.plezix-dashboard-promo strong {
+  display: block;
+  margin-block-end: 4px;
+  font-size: 1.05em;
+}
+
+.plezix-dashboard-promo p {
+  margin: 0;
+  color: var(--in-content-deemphasized-text);
+  font-size: 0.9em;
+}
+
+.plezix-dashboard-promo a {
+  flex: none;
+  padding: 9px 15px;
+  border-radius: 999px;
+  background: var(--in-content-primary-button-background);
+  color: var(--in-content-primary-button-text-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.plezix-dashboard-promo a:hover {
+  background: var(--in-content-primary-button-background-hover);
+}
+
+@media (max-width: 640px) {
+  .plezix-dashboard-promo {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

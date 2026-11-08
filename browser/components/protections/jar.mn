@@ -5,6 +5,9 @@
 browser.jar:
     content/browser/lockwise-card.mjs                      (content/lockwise-card.mjs)
     content/browser/monitor-card.mjs                       (content/monitor-card.mjs)
+    content/browser/privacy-dashboard.css                   (content/privacy-dashboard.css)
+    content/browser/privacy-dashboard.html                  (content/privacy-dashboard.html)
+    content/browser/privacy-dashboard.mjs                    (content/privacy-dashboard.mjs)
     content/browser/privacy-metrics-card.mjs               (content/privacy-metrics-card.mjs)
     content/browser/privacy-metrics-card.css               (content/privacy-metrics-card.css)
     content/browser/protections.css                       (content/protections.css)

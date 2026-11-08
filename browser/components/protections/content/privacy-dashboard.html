@@ -1,0 +1,198 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src chrome:; img-src chrome: data:; style-src chrome: 'unsafe-inline'; script-src chrome:; object-src 'none'"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="localization" href="browser/plezix.ftl" />
+    <link rel="stylesheet" href="chrome://global/skin/in-content/common.css" />
+    <link rel="stylesheet" href="chrome://browser/content/privacy-dashboard.css" />
+    <script type="module" src="chrome://browser/content/privacy-dashboard.mjs"></script>
+    <title data-l10n-id="plezix-privacy-page-title"></title>
+  </head>
+  <body>
+    <main class="privacy-dashboard">
+      <header class="page-header">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" focusable="false">
+            <path d="M16 3.5 26 7v8.2c0 6.4-4.3 10.9-10 13.3C10.3 26.1 6 21.6 6 15.2V7l10-3.5Z" />
+            <path d="m11.4 15.9 3.1 3.1 6.2-6.5" />
+          </svg>
+        </div>
+        <div class="page-heading">
+          <p class="eyebrow" data-l10n-id="plezix-privacy-eyebrow"></p>
+          <h1 data-l10n-id="plezix-privacy-title"></h1>
+          <p class="page-intro" data-l10n-id="plezix-privacy-intro"></p>
+        </div>
+        <div id="overall-status" class="status-pill" data-state="checking" role="status" aria-live="polite">
+          <span class="status-indicator" aria-hidden="true"></span>
+          <span id="overall-status-text" data-l10n-id="plezix-privacy-status-checking"></span>
+        </div>
+      </header>
+
+      <section class="section" aria-labelledby="mode-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-l10n-id="plezix-privacy-overview-eyebrow"></p>
+            <h2 id="mode-heading" data-l10n-id="plezix-privacy-mode-heading"></h2>
+          </div>
+          <a class="text-link" href="about:protections" data-l10n-id="plezix-privacy-full-report"></a>
+        </div>
+        <article class="mode-card">
+          <div class="mode-icon" aria-hidden="true">◈</div>
+          <div class="mode-copy">
+            <p class="mode-label" data-l10n-id="plezix-privacy-current-mode"></p>
+            <h3 id="mode-value" data-l10n-id="plezix-privacy-mode-custom"></h3>
+            <p id="mode-detail" class="muted" data-l10n-id="plezix-privacy-mode-detail"></p>
+          </div>
+          <a class="pill-button" href="about:preferences#privacy" data-l10n-id="plezix-privacy-manage-settings"></a>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="protections-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-l10n-id="plezix-privacy-controls-eyebrow"></p>
+            <h2 id="protections-heading" data-l10n-id="plezix-privacy-controls-heading"></h2>
+          </div>
+        </div>
+        <div class="protection-grid">
+          <article class="protection-card">
+            <div class="card-symbol symbol-blue" aria-hidden="true">◈</div>
+            <div class="card-copy">
+              <h3 data-l10n-id="plezix-privacy-etp-title"></h3>
+              <p id="tracking-state" class="state-value" data-state="checking" data-l10n-id="plezix-privacy-state-checking"></p>
+              <p id="tracking-detail" class="card-detail" data-l10n-id="plezix-privacy-etp-detail"></p>
+            </div>
+          </article>
+          <article class="protection-card">
+            <div class="card-symbol symbol-violet" aria-hidden="true">◉</div>
+            <div class="card-copy">
+              <h3 data-l10n-id="plezix-privacy-cookies-title"></h3>
+              <p id="cookie-state" class="state-value" data-state="checking" data-l10n-id="plezix-privacy-state-checking"></p>
+              <p id="cookie-detail" class="card-detail" data-l10n-id="plezix-privacy-cookies-detail"></p>
+            </div>
+          </article>
+          <article class="protection-card">
+            <div class="card-symbol symbol-orange" aria-hidden="true">⌁</div>
+            <div class="card-copy">
+              <h3 data-l10n-id="plezix-privacy-fingerprinting-title"></h3>
+              <p id="fingerprint-state" class="state-value" data-state="checking" data-l10n-id="plezix-privacy-state-checking"></p>
+              <p id="fingerprint-detail" class="card-detail" data-l10n-id="plezix-privacy-fingerprinting-detail"></p>
+            </div>
+          </article>
+          <article class="protection-card">
+            <div class="card-symbol symbol-green" aria-hidden="true">⛨</div>
+            <div class="card-copy">
+              <h3 data-l10n-id="plezix-privacy-cryptominer-title"></h3>
+              <p id="cryptominer-state" class="state-value" data-state="checking" data-l10n-id="plezix-privacy-state-checking"></p>
+              <p id="cryptominer-detail" class="card-detail" data-l10n-id="plezix-privacy-cryptominer-detail"></p>
+            </div>
+          </article>
+          <article class="protection-card">
+            <div class="card-symbol symbol-blue" aria-hidden="true">◎</div>
+            <div class="card-copy">
+              <h3 data-l10n-id="plezix-privacy-social-title"></h3>
+              <p id="social-state" class="state-value" data-state="checking" data-l10n-id="plezix-privacy-state-checking"></p>
+              <p id="social-detail" class="card-detail" data-l10n-id="plezix-privacy-social-detail"></p>
+            </div>
+          </article>
+          <article class="protection-card">
+            <div class="card-symbol symbol-teal" aria-hidden="true">◎</div>
+            <div class="card-copy">
+              <h3 data-l10n-id="plezix-privacy-gpc-title"></h3>
+              <p id="gpc-state" class="state-value" data-state="checking" data-l10n-id="plezix-privacy-state-checking"></p>
+              <p class="card-detail" data-l10n-id="plezix-privacy-gpc-detail"></p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="activity-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-l10n-id="plezix-privacy-activity-eyebrow"></p>
+            <h2 id="activity-heading" data-l10n-id="plezix-privacy-activity-title"></h2>
+          </div>
+          <span class="period-label" data-l10n-id="plezix-privacy-activity-period"></span>
+        </div>
+        <article id="metrics-card" class="metrics-card" data-state="loading">
+          <div class="metrics-total">
+            <span id="metric-total" class="total-number">—</span>
+            <span class="total-label" data-l10n-id="plezix-privacy-activity-total-label"></span>
+          </div>
+          <div id="metrics-status" class="metrics-status" role="status" aria-live="polite" data-l10n-id="plezix-privacy-activity-loading"></div>
+          <div id="metrics-breakdown" class="metrics-breakdown" hidden>
+            <div class="metric-row">
+              <div class="metric-label"><span data-l10n-id="plezix-privacy-metric-trackers"></span><strong id="metric-trackers">0</strong></div>
+              <div class="metric-track" aria-hidden="true"><span id="bar-trackers"></span></div>
+            </div>
+            <div class="metric-row">
+              <div class="metric-label"><span data-l10n-id="plezix-privacy-metric-cookies"></span><strong id="metric-cookies">0</strong></div>
+              <div class="metric-track" aria-hidden="true"><span id="bar-cookies"></span></div>
+            </div>
+            <div class="metric-row">
+              <div class="metric-label"><span data-l10n-id="plezix-privacy-metric-fingerprinters"></span><strong id="metric-fingerprinters">0</strong></div>
+              <div class="metric-track" aria-hidden="true"><span id="bar-fingerprinters"></span></div>
+            </div>
+            <div class="metric-row">
+              <div class="metric-label"><span data-l10n-id="plezix-privacy-metric-cryptominers"></span><strong id="metric-cryptominers">0</strong></div>
+              <div class="metric-track" aria-hidden="true"><span id="bar-cryptominers"></span></div>
+            </div>
+            <div class="metric-row">
+              <div class="metric-label"><span data-l10n-id="plezix-privacy-metric-social"></span><strong id="metric-social">0</strong></div>
+              <div class="metric-track" aria-hidden="true"><span id="bar-social"></span></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="tools-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-l10n-id="plezix-privacy-tools-eyebrow"></p>
+            <h2 id="tools-heading" data-l10n-id="plezix-privacy-tools-title"></h2>
+          </div>
+        </div>
+        <div class="tools-grid">
+          <a class="tool-card" href="about:preferences#privacy">
+            <span class="tool-symbol" aria-hidden="true">⚙</span>
+            <span class="tool-copy">
+              <strong data-l10n-id="plezix-privacy-tool-settings"></strong>
+              <small data-l10n-id="plezix-privacy-tool-settings-detail"></small>
+            </span>
+            <span class="tool-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="tool-card" href="about:addons">
+            <span class="tool-symbol" aria-hidden="true">◇</span>
+            <span class="tool-copy">
+              <strong data-l10n-id="plezix-privacy-tool-addons"></strong>
+              <small data-l10n-id="plezix-privacy-tool-addons-detail"></small>
+            </span>
+            <span class="tool-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="tool-card" href="about:protections">
+            <span class="tool-symbol" aria-hidden="true">⌁</span>
+            <span class="tool-copy">
+              <strong data-l10n-id="plezix-privacy-tool-report"></strong>
+              <small data-l10n-id="plezix-privacy-tool-report-detail"></small>
+            </span>
+            <span class="tool-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <span data-l10n-id="plezix-privacy-footer"></span>
+        <a href="about:preferences#privacy" data-l10n-id="plezix-privacy-footer-settings"></a>
+      </footer>
+    </main>
+  </body>
+</html>
