@@ -265,6 +265,17 @@
   padding: 0;
 }
 
+/* Plezix: compact, softly squared horizontal tabs on Windows. */
+:root:not([uidensity="touch"]) #TabsToolbar #tabbrowser-tabs[orient="horizontal"] {
+  --tab-min-height: 30px;
+  --tab-margin-block: 3px;
+  --tabstrip-min-height: calc(var(--tab-min-height) + 2 * var(--tab-margin-block));
+  --tab-min-width: 72px;
+  --tab-max-width: 190px;
+  --tab-padding-inline: 7px;
+  --tab-border-radius: 6px;
+}
+
 @media (prefers-contrast) {
   /* For high contrast themes. XXX is this needed anymore? */
   #tabbrowser-tabpanels,
