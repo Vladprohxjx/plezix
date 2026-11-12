@@ -31,3 +31,11 @@ all-tabs-menu-tab-groups-sub-view =
   .title = Tab groups
 
 all-tabs-menu-current-window-header = Current window
+
+# Filters the visible tabs in the current window by page title or address.
+all-tabs-menu-search-filter =
+  .placeholder = Filter tabs in this window
+  .aria-label = Filter tabs in this window
+
+# Shown when no open tabs match the current search.
+all-tabs-menu-search-no-results = No matching tabs

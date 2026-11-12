@@ -15,6 +15,8 @@ var gTabsPanel = {
     allTabsButton: "alltabs-button",
     allTabsView: "allTabsMenu-allTabsView",
     allTabsViewTabs: "allTabsMenu-allTabsView-tabs",
+    searchInput: "allTabsMenu-searchInput",
+    searchEmptyState: "allTabsMenu-searchEmpty",
     dropIndicator: "allTabsMenu-dropIndicator",
     containerTabsView: "allTabsMenu-containerTabsView",
     hiddenTabsButton: "allTabsMenu-hiddenTabsButton",
@@ -47,6 +49,30 @@ var gTabsPanel = {
     );
   },
 
+  updateSearchEmptyState() {
+    this.searchEmptyState.hidden =
+      !this.searchInput.value.trim() || this.allTabsPanel.tabToElement.size > 0;
+  },
+
+  updateSearchResults() {
+    const query = this.searchInput.value.trim().toLowerCase();
+    this.allTabsPanel.filterFn = tab => {
+      if (tab.hidden) {
+        return false;
+      }
+      if (!query) {
+        return true;
+      }
+      const title = tab.label || tab.getAttribute("label") || "";
+      const url = tab.linkedBrowser?.currentURI?.spec || "";
+      return `${title} ${url}`.toLowerCase().includes(query);
+    };
+    this.allTabsPanel._refreshDOM();
+    this.allTabsPanel.domRefreshComplete.then(() =>
+      this.updateSearchEmptyState()
+    );
+  },
+
   init() {
     if (this._initialized) {
       return;
@@ -76,6 +102,33 @@ var gTabsPanel = {
       containerNode: document.getElementById("allTabsMenu-groupsSubView-body"),
       showAll: true,
     });
+
+    this.searchInput.addEventListener("input", () =>
+      this.updateSearchResults()
+    );
+    this.searchInput.addEventListener("keydown", event => {
+      if (event.key == "Escape" && this.searchInput.value) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.searchInput.value = "";
+        this.updateSearchResults();
+      } else if (event.key == "Enter" && this.searchInput.value.trim()) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.allTabsPanel.domRefreshComplete.then(() => {
+          const firstTab = this.allTabsPanel.tabToElement.keys().next().value;
+          if (firstTab) {
+            this.allTabsPanel._selectTab(firstTab);
+          }
+        });
+      }
+    });
+
+    for (const eventName of ["TabClose", "TabAttrModified"]) {
+      gBrowser.tabContainer.addEventListener(eventName, () =>
+        Promise.resolve().then(() => this.updateSearchEmptyState())
+      );
+    }
 
     this.allTabsView.addEventListener("ViewShowing", () => {
       PanelUI._ensureShortcutsShown(this.allTabsView);
@@ -119,6 +172,8 @@ var gTabsPanel = {
       );
       closeDuplicateTabsItem.hidden =
         !gBrowser.getAllDuplicateTabsToClose().length;
+
+      this.updateSearchResults();
     });
 
     this.allTabsView.addEventListener("ViewShown", () =>

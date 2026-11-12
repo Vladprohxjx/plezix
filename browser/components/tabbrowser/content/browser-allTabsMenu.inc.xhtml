@@ -22,6 +22,14 @@
             aria-labelledby="allTabsMenu-groupsView-header"/>
       <toolbarseparator id="allTabsMenu-groupsSeparator"/>
       <html:h2 id="allTabsMenu-currentWindowHeader" class="subview-subheader" data-l10n-id="all-tabs-menu-current-window-header"/>
+      <html:div id="allTabsMenu-searchContainer" class="all-tabs-search-container">
+        <html:input id="allTabsMenu-searchInput"
+                    type="search"
+                    autocomplete="off"
+                    spellcheck="false"
+                    aria-controls="allTabsMenu-allTabsView-tabs"
+                    data-l10n-id="all-tabs-menu-search-filter"/>
+      </html:div>
       <toolbarbutton id="allTabsMenu-hiddenTabsButton"
                      class="subviewbutton subviewbutton-nav"
                      closemenu="none"
@@ -35,6 +43,12 @@
             class="panel-subview-body"
             role="group"
             aria-labelledby="allTabsMenu-currentWindowHeader"/>
+      <html:div id="allTabsMenu-searchEmpty"
+                class="all-tabs-search-empty"
+                role="status"
+                aria-live="polite"
+                hidden="hidden"
+                data-l10n-id="all-tabs-menu-search-no-results"/>
       <toolbarseparator/>
       <toolbarbutton id="allTabsMenu-viewAllTabs"
                      class="subviewbutton"

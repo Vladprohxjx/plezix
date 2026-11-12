@@ -265,6 +265,42 @@
   padding: 0;
 }
 
+/* Plezix: native-looking live tab search in the All Tabs panel. */
+#allTabsMenu-searchContainer {
+  margin-block: var(--space-small);
+  margin-inline: var(--panel-menuitem-margin-inline);
+}
+
+#allTabsMenu-searchInput {
+  appearance: none;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: var(--urlbar-basic-component-size);
+  padding-inline: var(--space-medium);
+  border: var(--border-width) solid var(--border-color-deemphasized);
+  border-radius: var(--urlbar-inner-border-radius);
+  background-color: var(--input-background-color);
+  color: var(--input-text-color);
+  font: inherit;
+}
+
+#allTabsMenu-searchInput::placeholder {
+  color: var(--text-color-deemphasized);
+  opacity: 1;
+}
+
+#allTabsMenu-searchInput:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-inset);
+}
+
+#allTabsMenu-searchEmpty {
+  padding: var(--space-large) var(--space-medium);
+  color: var(--text-color-deemphasized);
+  text-align: center;
+}
+
 /* Plezix: compact, softly squared horizontal tabs on Windows. */
 :root:not([uidensity="touch"]) #TabsToolbar #tabbrowser-tabs[orient="horizontal"] {
   --tab-min-height: 30px;
