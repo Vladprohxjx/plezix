@@ -9,7 +9,7 @@
 # BrandFullNameInternal is used for some registry and file system values
 # instead of BrandFullName and typically should not be modified.
 !define BrandFullNameInternal "Mozilla Firefox"
-!define BrandFullName         "Mozilla Firefox"
+!define BrandFullName         "Plezix Browser"
 !define CompanyName           "Mozilla Corporation"
 !define URLInfoAbout          "https://www.mozilla.org"
 !define URLUpdateInfo         "https://www.firefox.com/firefox/${AppVersion}/releasenotes"

@@ -329,12 +329,12 @@ FunctionEnd
   ; An empty string is used for the 5th param because FirefoxHTML- is not a
   ; protocol handler.  Ditto for FirefoxPDF-.
   ${AddDisabledDDEHandlerValues} "FirefoxHTML$5" "$2" "$8,${IDI_DOCUMENT_ZERO_BASED}" \
-                                 "${AppRegName} HTML Document" ""
+                                 "${BrandProductName} HTML Document" ""
 
   ${AddDisabledDDEHandlerValues} "FirefoxPDF$5" "$2" "$8,${IDI_DOCUMENT_PDF_ZERO_BASED}" \
-                                 "${AppRegName} PDF Document" ""
+                                 "${BrandProductName} PDF Document" ""
 
-  ${AddDisabledDDEHandlerValues} "FirefoxURL$5" "$2" "$8,${IDI_DOCUMENT_ZERO_BASED}" "${AppRegName} URL" \
+  ${AddDisabledDDEHandlerValues} "FirefoxURL$5" "$2" "$8,${IDI_DOCUMENT_ZERO_BASED}" "${BrandProductName} URL" \
                                  "true"
   ; An empty string is used for the 4th & 5th params because the following
   ; protocol handlers already have a display name and the additional keys

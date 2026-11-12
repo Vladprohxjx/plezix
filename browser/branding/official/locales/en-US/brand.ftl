@@ -16,12 +16,12 @@
 ## For further details, consult:
 ## https://mozilla-l10n.github.io/styleguides/mozilla_general/#brands-copyright-and-trademark
 
--brand-shorter-name = Firefox
--brand-short-name = Firefox
--brand-shortcut-name = Firefox
--brand-full-name = Mozilla Firefox
+-brand-shorter-name = Plezix Browser
+-brand-short-name = Plezix Browser
+-brand-shortcut-name = Plezix Browser
+-brand-full-name = Plezix Browser
 # This brand name can be used in messages where the product name needs to
 # remain unchanged across different versions (Nightly, Beta, etc.).
--brand-product-name = Firefox
+-brand-product-name = Plezix Browser
 -vendor-short-name = Mozilla
 trademarkInfo = Firefox and the Firefox logos are trademarks of the Mozilla Foundation.

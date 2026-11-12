@@ -32,7 +32,7 @@
 !define AppRegName            "Firefox"
 !define ToastAumidPrefix      "@MOZ_TOAST_APP_NAME@Toast-"
 
-!define BrandProductName      "Firefox"
+!define BrandProductName      "Plezix Browser"
 !ifndef DEV_EDITION
 !define BrandShortName        "@MOZ_APP_DISPLAYNAME@"
 !endif
