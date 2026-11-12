@@ -24,4 +24,4 @@
 # remain unchanged across different versions (Nightly, Beta, etc.).
 -brand-product-name = Plezix Browser
 -vendor-short-name = Mozilla
-trademarkInfo = Firefox and the Firefox logos are trademarks of the Mozilla Foundation.
+trademarkInfo = Plezix Browser is built on Mozilla’s open-source browser technology. Mozilla trademarks remain the property of the Mozilla Foundation.
